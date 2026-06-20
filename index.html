@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=1080, user-scalable=no">
     <title>PWA Prueba - Tasker</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
@@ -14,8 +14,8 @@
         }
 
         html, body {
-            width: 100%;
-            height: 100%;
+            width: 1080px;
+            height: 2400px;
             margin: 0;
             padding: 0;
             background: #f0f2f5;
@@ -23,10 +23,10 @@
             overflow: hidden;
         }
 
-        /* Contenedor: OCUPA TODA LA PANTALLA */
+        /* Contenedor con TAMAÑO FIJO */
         #app {
-            width: 100vw;
-            height: 100vh;
+            width: 1080px;
+            height: 2400px;
             background: white;
             position: relative;
             overflow: hidden;
@@ -38,19 +38,19 @@
 
         .header {
             text-align: center;
-            padding: 20px 20px 0 20px;
+            padding: 25px 20px 0 20px;
             position: relative;
             z-index: 5;
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 28px;
             color: #1a1a2e;
         }
 
         .subtitle {
             color: #666;
-            font-size: 13px;
+            font-size: 14px;
             margin-top: 4px;
         }
 
@@ -68,7 +68,6 @@
         /* LÍNEAS GUÍA - COORDENADAS ABSOLUTAS */
         /* ============================================================ */
 
-        /* Línea vertical en X = 550 */
         .guide-line-vertical {
             position: absolute;
             left: 550px;
@@ -80,7 +79,6 @@
             z-index: 2;
         }
 
-        /* Línea horizontal en Y = 750 */
         .guide-line-horizontal-1 {
             position: absolute;
             left: 0;
@@ -92,7 +90,6 @@
             z-index: 2;
         }
 
-        /* Línea horizontal en Y = 1900 */
         .guide-line-horizontal-2 {
             position: absolute;
             left: 0;
@@ -104,7 +101,6 @@
             z-index: 2;
         }
 
-        /* Etiquetas de las líneas */
         .guide-label {
             position: absolute;
             font-size: 12px;
@@ -137,7 +133,7 @@
         }
 
         /* ============================================================ */
-        /* PUNTOS ROJOS - COORDENADAS ABSOLUTAS */
+        /* PUNTOS ROJOS */
         /* ============================================================ */
 
         .dot {
@@ -195,7 +191,6 @@
         /* BOTONES - COORDENADAS ABSOLUTAS */
         /* ============================================================ */
 
-        /* Botón 1: Centro EXACTO en (550, 750) */
         #btn-prueba {
             position: absolute;
             left: 550px;
@@ -224,7 +219,6 @@
             cursor: not-allowed;
         }
 
-        /* Botón 2: Centro EXACTO en (550, 1900) */
         #btn-agendar {
             position: absolute;
             left: 550px;
@@ -263,20 +257,20 @@
         }
 
         /* ============================================================ */
-        /* BOTÓN ENVIAR NOTIFICACIÓN */
+        /* BOTÓN ENVIAR */
         /* ============================================================ */
 
         #btn-enviar {
             position: absolute;
-            left: 50%;
-            bottom: 30px;
+            left: 540px;
+            bottom: 40px;
             transform: translateX(-50%);
             background: #28a745;
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 35px;
             border-radius: 25px;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: bold;
             cursor: pointer;
             z-index: 5;
@@ -293,13 +287,13 @@
 
         #status {
             position: absolute;
-            left: 50%;
-            bottom: 90px;
+            left: 540px;
+            bottom: 100px;
             transform: translateX(-50%);
-            font-size: 14px;
+            font-size: 15px;
             color: #666;
             background: #f8f9fa;
-            padding: 6px 18px;
+            padding: 8px 20px;
             border-radius: 20px;
             border: 1px solid #e9ecef;
             z-index: 5;
@@ -313,13 +307,13 @@
 
         #log {
             position: absolute;
-            left: 50%;
-            bottom: 140px;
+            left: 540px;
+            bottom: 155px;
             transform: translateX(-50%);
-            font-size: 11px;
+            font-size: 12px;
             color: #999;
             background: rgba(0, 0, 0, 0.05);
-            padding: 4px 16px;
+            padding: 5px 18px;
             border-radius: 12px;
             z-index: 5;
             max-width: 90%;
@@ -483,8 +477,7 @@
 
         window.enviarNotificacion = enviarNotificacion;
 
-        // Información de depuración
-        console.log('📱 Resolución real:', window.innerWidth, 'x', window.innerHeight);
+        console.log('📱 Tamaño fijo: 1080x2400');
         console.log('🎯 Coordenadas EXACTAS: (550, 750) y (550, 1900)');
         console.log('💡 Para probar: enviarNotificacion("soy un gato")');
     </script>
