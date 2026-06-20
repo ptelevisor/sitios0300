@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1080, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PWA Prueba - Tasker</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
@@ -20,28 +20,55 @@
             padding: 0;
             background: #f0f2f5;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
         }
 
-        /* Contenedor con TAMAÑO FIJO de 1080x2340 (A34) */
+        /* Contenedor: OCUPA TODA LA PANTALLA */
         #app {
-            width: 1080px;
-            height: 2340px;
+            width: 100vw;
+            height: 100vh;
             background: white;
             position: relative;
             overflow: hidden;
-            border: 2px solid #ddd;
-            transform-origin: center center;
         }
 
         /* ============================================================ */
-        /* LÍNEAS GUÍA - EXACTAS PARA A34 */
+        /* HEADER */
         /* ============================================================ */
 
-        /* Línea vertical en X=550 */
+        .header {
+            text-align: center;
+            padding: 20px 20px 0 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #1a1a2e;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .device-badge {
+            display: inline-block;
+            background: #24292e;
+            color: white;
+            padding: 2px 14px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        /* ============================================================ */
+        /* LÍNEAS GUÍA - COORDENADAS ABSOLUTAS */
+        /* ============================================================ */
+
+        /* Línea vertical en X = 550 */
         .guide-line-vertical {
             position: absolute;
             left: 550px;
@@ -53,7 +80,7 @@
             z-index: 2;
         }
 
-        /* Línea horizontal en Y=750 */
+        /* Línea horizontal en Y = 750 */
         .guide-line-horizontal-1 {
             position: absolute;
             left: 0;
@@ -65,19 +92,19 @@
             z-index: 2;
         }
 
-        /* Línea horizontal en Y=1850 (ajustado para A34) */
+        /* Línea horizontal en Y = 1900 */
         .guide-line-horizontal-2 {
             position: absolute;
             left: 0;
             right: 0;
-            top: 1850px;
+            top: 1900px;
             height: 0;
             border-top: 2px dashed rgba(255, 0, 0, 0.5);
             pointer-events: none;
             z-index: 2;
         }
 
-        /* Etiquetas de líneas */
+        /* Etiquetas de las líneas */
         .guide-label {
             position: absolute;
             font-size: 12px;
@@ -105,12 +132,12 @@
 
         .guide-label-h2 {
             left: 10px;
-            top: 1850px;
+            top: 1900px;
             transform: translateY(-50%);
         }
 
         /* ============================================================ */
-        /* PUNTOS ROJOS EXACTOS */
+        /* PUNTOS ROJOS - COORDENADAS ABSOLUTAS */
         /* ============================================================ */
 
         .dot {
@@ -132,7 +159,7 @@
 
         .dot-2 {
             left: 550px;
-            top: 1850px;
+            top: 1900px;
         }
 
         /* ============================================================ */
@@ -143,7 +170,7 @@
             position: absolute;
             font-size: 13px;
             color: #495057;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             padding: 4px 14px;
             border-radius: 10px;
             border: 1px solid #dee2e6;
@@ -151,53 +178,21 @@
             pointer-events: none;
             z-index: 3;
             font-weight: 600;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .label-1 {
             left: 550px;
-            top: 700px;
+            top: 690px;
         }
 
         .label-2 {
             left: 550px;
-            top: 1800px;
+            top: 1840px;
         }
 
         /* ============================================================ */
-        /* HEADER */
-        /* ============================================================ */
-
-        .header {
-            text-align: center;
-            padding: 25px 20px 0 20px;
-            position: relative;
-            z-index: 5;
-        }
-
-        h1 {
-            font-size: 28px;
-            color: #1a1a2e;
-        }
-
-        .subtitle {
-            color: #666;
-            font-size: 14px;
-            margin-top: 4px;
-        }
-
-        .device-badge {
-            display: inline-block;
-            background: #24292e;
-            color: white;
-            padding: 2px 14px;
-            border-radius: 12px;
-            font-size: 11px;
-            margin-bottom: 4px;
-        }
-
-        /* ============================================================ */
-        /* BOTONES - CENTRO EXACTO EN LAS COORDENADAS DEL A34 */
+        /* BOTONES - COORDENADAS ABSOLUTAS */
         /* ============================================================ */
 
         /* Botón 1: Centro EXACTO en (550, 750) */
@@ -229,11 +224,11 @@
             cursor: not-allowed;
         }
 
-        /* Botón 2: Centro EXACTO en (550, 1850) para A34 */
+        /* Botón 2: Centro EXACTO en (550, 1900) */
         #btn-agendar {
             position: absolute;
             left: 550px;
-            top: 1850px;
+            top: 1900px;
             transform: translate(-50%, -50%);
             width: 900px;
             height: 70px;
@@ -267,18 +262,21 @@
             cursor: not-allowed;
         }
 
-        /* Botón enviar notificación */
+        /* ============================================================ */
+        /* BOTÓN ENVIAR NOTIFICACIÓN */
+        /* ============================================================ */
+
         #btn-enviar {
             position: absolute;
             left: 50%;
-            bottom: 40px;
+            bottom: 30px;
             transform: translateX(-50%);
             background: #28a745;
             color: white;
             border: none;
-            padding: 14px 35px;
+            padding: 12px 30px;
             border-radius: 25px;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             z-index: 5;
@@ -296,12 +294,12 @@
         #status {
             position: absolute;
             left: 50%;
-            bottom: 100px;
+            bottom: 90px;
             transform: translateX(-50%);
-            font-size: 15px;
+            font-size: 14px;
             color: #666;
             background: #f8f9fa;
-            padding: 8px 20px;
+            padding: 6px 18px;
             border-radius: 20px;
             border: 1px solid #e9ecef;
             z-index: 5;
@@ -316,12 +314,12 @@
         #log {
             position: absolute;
             left: 50%;
-            bottom: 155px;
+            bottom: 140px;
             transform: translateX(-50%);
-            font-size: 12px;
+            font-size: 11px;
             color: #999;
-            background: rgba(0,0,0,0.05);
-            padding: 5px 18px;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 4px 16px;
             border-radius: 12px;
             z-index: 5;
             max-width: 90%;
@@ -329,194 +327,167 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-
-        /* ============================================================ */
-        /* ESCALA AUTOMÁTICA PARA QUE QUEPA EN EL A34 */
-        /* ============================================================ */
-
-        @media (max-width: 1080px) {
-            #app {
-                transform: scale(0.9);
-            }
-        }
-
-        @media (max-width: 900px) {
-            #app {
-                transform: scale(0.8);
-            }
-        }
-
-        @media (max-width: 700px) {
-            #app {
-                transform: scale(0.65);
-            }
-        }
-
-        @media (max-width: 500px) {
-            #app {
-                transform: scale(0.5);
-            }
-        }
     </style>
 </head>
 <body>
 
-<div id="app">
+    <div id="app">
 
-    <!-- ============================================================ -->
-    <!-- LÍNEAS GUÍA EN PÍXELES EXACTOS PARA A34 -->
-    <!-- ============================================================ -->
+        <!-- ============================================================ -->
+        <!-- LÍNEAS GUÍA -->
+        <!-- ============================================================ -->
 
-    <div class="guide-line-vertical"></div>
-    <div class="guide-label guide-label-vertical">⬇ X = 550</div>
+        <div class="guide-line-vertical"></div>
+        <div class="guide-label guide-label-vertical">⬇ X = 550</div>
 
-    <div class="guide-line-horizontal-1"></div>
-    <div class="guide-label guide-label-h1">➡ Y = 750</div>
+        <div class="guide-line-horizontal-1"></div>
+        <div class="guide-label guide-label-h1">➡ Y = 750</div>
 
-    <div class="guide-line-horizontal-2"></div>
-    <div class="guide-label guide-label-h2">➡ Y = 1850</div>
+        <div class="guide-line-horizontal-2"></div>
+        <div class="guide-label guide-label-h2">➡ Y = 1900</div>
 
-    <!-- ============================================================ -->
-    <!-- PUNTOS ROJOS EN (550, 750) y (550, 1850) -->
-    <!-- ============================================================ -->
+        <!-- ============================================================ -->
+        <!-- PUNTOS ROJOS -->
+        <!-- ============================================================ -->
 
-    <div class="dot dot-1"></div>
-    <div class="dot dot-2"></div>
+        <div class="dot dot-1"></div>
+        <div class="dot dot-2"></div>
 
-    <!-- ============================================================ -->
-    <!-- ETIQUETAS -->
-    <!-- ============================================================ -->
+        <!-- ============================================================ -->
+        <!-- ETIQUETAS -->
+        <!-- ============================================================ -->
 
-    <div class="label label-1">🎯 (550, 750)</div>
-    <div class="label label-2">🎯 (550, 1850)</div>
+        <div class="label label-1">🎯 (550, 750)</div>
+        <div class="label label-2">🎯 (550, 1900)</div>
 
-    <!-- ============================================================ -->
-    <!-- HEADER -->
-    <!-- ============================================================ -->
+        <!-- ============================================================ -->
+        <!-- HEADER -->
+        <!-- ============================================================ -->
 
-    <div class="header">
-        <span class="device-badge">📱 Samsung A34</span>
-        <h1>🧪 PWA Prueba Tasker</h1>
-        <p class="subtitle">Centros EXACTOS: (550,750) y (550,1850)</p>
+        <div class="header">
+            <span class="device-badge">📱 Samsung A34</span>
+            <h1>🧪 PWA Prueba Tasker</h1>
+            <p class="subtitle">Centros EXACTOS: (550, 750) y (550, 1900)</p>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- BOTONES -->
+        <!-- ============================================================ -->
+
+        <button id="btn-prueba">🎯 Prueba 100 puntos</button>
+        <button id="btn-agendar">📅 Agendar</button>
+        <button id="btn-enviar">📨 Enviar "soy un gato"</button>
+
+        <!-- ============================================================ -->
+        <!-- ESTADO Y LOG -->
+        <!-- ============================================================ -->
+
+        <div id="status">📨 Notificación: <span id="notif-text">Esperando...</span></div>
+        <div id="log">💡 Listo</div>
+
     </div>
 
-    <!-- ============================================================ -->
-    <!-- BOTONES CON CENTRO EXACTO -->
-    <!-- ============================================================ -->
+    <script>
+        // ============================================================
+        // REGISTRAR SERVICE WORKER
+        // ============================================================
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => log('✅ Service Worker listo'))
+                .catch(() => log('❌ Error SW'));
+        }
 
-    <button id="btn-prueba">🎯 Prueba 100 puntos</button>
-    <button id="btn-agendar">📅 Agendar</button>
-    <button id="btn-enviar">📨 Enviar "soy un gato"</button>
+        // ============================================================
+        // PERMISO DE NOTIFICACIONES
+        // ============================================================
+        if ('Notification' in window) {
+            Notification.requestPermission().then(p => {
+                if (p === 'granted') {
+                    document.getElementById('notif-text').textContent = '✅ Listo';
+                    log('🔔 Permiso concedido');
+                } else {
+                    document.getElementById('notif-text').textContent = '🚫 Bloqueado';
+                    log('⚠️ Permiso denegado');
+                }
+            });
+        }
 
-    <!-- ============================================================ -->
-    <!-- ESTADO Y LOG -->
-    <!-- ============================================================ -->
+        // ============================================================
+        // ESCUCHAR NOTIFICACIONES DEL SW
+        // ============================================================
+        navigator.serviceWorker.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'NOTIFICATION_RECEIVED') {
+                const text = event.data.text || 'sin texto';
+                document.getElementById('notif-text').textContent = `"${text}"`;
+                log(`📨 Notificación: "${text}"`);
 
-    <div id="status">📨 Notificación: <span id="notif-text">Esperando...</span></div>
-    <div id="log">💡 Listo</div>
-
-</div>
-
-<script>
-    // ============================================================
-    // REGISTRAR SERVICE WORKER
-    // ============================================================
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-            .then(() => log('✅ Service Worker listo'))
-            .catch(() => log('❌ Error SW'));
-    }
-
-    // ============================================================
-    // PERMISO DE NOTIFICACIONES
-    // ============================================================
-    if ('Notification' in window) {
-        Notification.requestPermission().then(p => {
-            if (p === 'granted') {
-                document.getElementById('notif-text').textContent = '✅ Listo';
-                log('🔔 Permiso concedido');
-            } else {
-                document.getElementById('notif-text').textContent = '🚫 Bloqueado';
-                log('⚠️ Permiso denegado');
+                if (text === 'soy un gato') {
+                    log('🐱 ¡Coincide! Clic en "Prueba 100 puntos"');
+                    document.getElementById('btn-prueba').click();
+                }
             }
         });
-    }
 
-    // ============================================================
-    // ESCUCHAR NOTIFICACIONES DEL SW
-    // ============================================================
-    navigator.serviceWorker.addEventListener('message', (event) => {
-        if (event.data && event.data.type === 'NOTIFICATION_RECEIVED') {
-            const text = event.data.text || 'sin texto';
-            document.getElementById('notif-text').textContent = `"${text}"`;
-            log(`📨 Notificación: "${text}"`);
+        // ============================================================
+        // LÓGICA DE BOTONES
+        // ============================================================
+        const btnPrueba = document.getElementById('btn-prueba');
+        const btnAgendar = document.getElementById('btn-agendar');
+        const btnEnviar = document.getElementById('btn-enviar');
 
-            if (text === 'soy un gato') {
-                log('🐱 ¡Coincide! Clic en "Prueba 100 puntos"');
-                document.getElementById('btn-prueba').click();
+        btnPrueba.addEventListener('click', function() {
+            log('🖱️ Clic en (550, 750)');
+            this.disabled = true;
+            this.textContent = '⏳ Cargando...';
+
+            setTimeout(() => {
+                btnAgendar.classList.add('visible');
+                log('✅ Botón "Agendar" visible (550, 1900)');
+                this.disabled = false;
+                this.textContent = '🎯 Prueba 100 puntos';
+            }, 3000);
+        });
+
+        btnAgendar.addEventListener('click', function() {
+            log('🖱️ Clic en (550, 1900) → ¡AGENDADO! 🎉');
+            this.textContent = '✅ ¡Agendado!';
+            this.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
+            this.disabled = true;
+            setTimeout(() => log('🎉 Proceso completado'), 500);
+        });
+
+        btnEnviar.addEventListener('click', function() {
+            enviarNotificacion('soy un gato');
+        });
+
+        // ============================================================
+        // FUNCIONES
+        // ============================================================
+        function log(msg) {
+            const el = document.getElementById('log');
+            el.textContent = '💡 ' + msg;
+            console.log('[PWA]', msg);
+        }
+
+        function enviarNotificacion(texto = 'soy un gato') {
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage({
+                    type: 'TEST_NOTIFICATION',
+                    text: texto
+                });
+                log(`📤 Enviando: "${texto}"`);
+            } else {
+                log('❌ SW no activo. Recarga.');
             }
         }
-    });
 
-    // ============================================================
-    // LÓGICA DE BOTONES
-    // ============================================================
-    const btnPrueba = document.getElementById('btn-prueba');
-    const btnAgendar = document.getElementById('btn-agendar');
-    const btnEnviar = document.getElementById('btn-enviar');
+        window.enviarNotificacion = enviarNotificacion;
 
-    btnPrueba.addEventListener('click', function() {
-        log('🖱️ Clic en (550, 750)');
-        this.disabled = true;
-        this.textContent = '⏳ Cargando...';
-
-        setTimeout(() => {
-            btnAgendar.classList.add('visible');
-            log('✅ Botón "Agendar" visible (550, 1850)');
-            this.disabled = false;
-            this.textContent = '🎯 Prueba 100 puntos';
-        }, 3000);
-    });
-
-    btnAgendar.addEventListener('click', function() {
-        log('🖱️ Clic en (550, 1850) → ¡AGENDADO! 🎉');
-        this.textContent = '✅ ¡Agendado!';
-        this.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
-        this.disabled = true;
-        setTimeout(() => log('🎉 Proceso completado'), 500);
-    });
-
-    btnEnviar.addEventListener('click', function() {
-        enviarNotificacion('soy un gato');
-    });
-
-    // ============================================================
-    // FUNCIONES
-    // ============================================================
-    function log(msg) {
-        const el = document.getElementById('log');
-        el.textContent = '💡 ' + msg;
-        console.log('[PWA]', msg);
-    }
-
-    function enviarNotificacion(texto = 'soy un gato') {
-        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.controller.postMessage({
-                type: 'TEST_NOTIFICATION',
-                text: texto
-            });
-            log(`📤 Enviando: "${texto}"`);
-        } else {
-            log('❌ SW no activo. Recarga.');
-        }
-    }
-
-    window.enviarNotificacion = enviarNotificacion;
-
-    console.log('📱 Samsung A34 - 1080x2340');
-    console.log('🎯 Coordenadas EXACTAS: (550, 750) y (550, 1850)');
-    console.log('💡 Para probar: enviarNotificacion("soy un gato")');
-</script>
+        // Información de depuración
+        console.log('📱 Resolución real:', window.innerWidth, 'x', window.innerHeight);
+        console.log('🎯 Coordenadas EXACTAS: (550, 750) y (550, 1900)');
+        console.log('💡 Para probar: enviarNotificacion("soy un gato")');
+    </script>
 
 </body>
 </html>
