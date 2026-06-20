@@ -65,9 +65,10 @@
         }
 
         /* ============================================================ */
-        /* LÍNEAS GUÍA - COORDENADAS ABSOLUTAS */
+        /* LÍNEAS GUÍA - TODAS LAS COORDENADAS */
         /* ============================================================ */
 
+        /* Línea vertical en X = 550 */
         .guide-line-vertical {
             position: absolute;
             left: 550px;
@@ -79,34 +80,24 @@
             z-index: 2;
         }
 
-        .guide-line-horizontal-1 {
+        /* Líneas horizontales */
+        .guide-line-horizontal {
             position: absolute;
             left: 0;
             right: 0;
-            top: 750px;
             height: 0;
             border-top: 2px dashed rgba(255, 0, 0, 0.5);
             pointer-events: none;
             z-index: 2;
         }
 
-        .guide-line-horizontal-2 {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 1900px;
-            height: 0;
-            border-top: 2px dashed rgba(255, 0, 0, 0.5);
-            pointer-events: none;
-            z-index: 2;
-        }
-
+        /* Etiquetas de las líneas */
         .guide-label {
             position: absolute;
-            font-size: 12px;
+            font-size: 11px;
             color: #dc3545;
             background: rgba(255, 255, 255, 0.95);
-            padding: 2px 10px;
+            padding: 2px 8px;
             border-radius: 4px;
             border: 1px solid rgba(220, 53, 69, 0.3);
             pointer-events: none;
@@ -120,20 +111,8 @@
             transform: translateX(-50%);
         }
 
-        .guide-label-h1 {
-            left: 10px;
-            top: 750px;
-            transform: translateY(-50%);
-        }
-
-        .guide-label-h2 {
-            left: 10px;
-            top: 1900px;
-            transform: translateY(-50%);
-        }
-
         /* ============================================================ */
-        /* PUNTOS ROJOS */
+        /* PUNTOS ROJOS EN LAS COORDENADAS PRINCIPALES */
         /* ============================================================ */
 
         .dot {
@@ -159,7 +138,7 @@
         }
 
         /* ============================================================ */
-        /* ETIQUETAS DE COORDENADAS */
+        /* ETIQUETAS DE COORDENADAS PRINCIPALES */
         /* ============================================================ */
 
         .label {
@@ -328,27 +307,57 @@
     <div id="app">
 
         <!-- ============================================================ -->
-        <!-- LÍNEAS GUÍA -->
+        <!-- LÍNEA VERTICAL -->
         <!-- ============================================================ -->
 
         <div class="guide-line-vertical"></div>
         <div class="guide-label guide-label-vertical">⬇ X = 550</div>
 
-        <div class="guide-line-horizontal-1"></div>
-        <div class="guide-label guide-label-h1">➡ Y = 750</div>
+        <!-- ============================================================ -->
+        <!-- LÍNEAS HORIZONTALES - TODAS LAS SOLICITADAS -->
+        <!-- ============================================================ -->
 
-        <div class="guide-line-horizontal-2"></div>
-        <div class="guide-label guide-label-h2">➡ Y = 1900</div>
+        <!-- Y = 500 -->
+        <div class="guide-line-horizontal" style="top: 500px;"></div>
+        <div class="guide-label" style="left: 10px; top: 500px; transform: translateY(-50%);">➡ Y = 500</div>
+
+        <!-- Y = 600 -->
+        <div class="guide-line-horizontal" style="top: 600px;"></div>
+        <div class="guide-label" style="left: 10px; top: 600px; transform: translateY(-50%);">➡ Y = 600</div>
+
+        <!-- Y = 700 -->
+        <div class="guide-line-horizontal" style="top: 700px;"></div>
+        <div class="guide-label" style="left: 10px; top: 700px; transform: translateY(-50%);">➡ Y = 700</div>
+
+        <!-- Y = 750 (principal) -->
+        <div class="guide-line-horizontal" style="top: 750px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
+        <div class="guide-label" style="left: 10px; top: 750px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 750 ★</div>
+
+        <!-- Y = 800 -->
+        <div class="guide-line-horizontal" style="top: 800px;"></div>
+        <div class="guide-label" style="left: 10px; top: 800px; transform: translateY(-50%);">➡ Y = 800</div>
+
+        <!-- Y = 1800 -->
+        <div class="guide-line-horizontal" style="top: 1800px;"></div>
+        <div class="guide-label" style="left: 10px; top: 1800px; transform: translateY(-50%);">➡ Y = 1800</div>
+
+        <!-- Y = 1900 (principal) -->
+        <div class="guide-line-horizontal" style="top: 1900px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
+        <div class="guide-label" style="left: 10px; top: 1900px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 1900 ★</div>
+
+        <!-- Y = 2000 -->
+        <div class="guide-line-horizontal" style="top: 2000px;"></div>
+        <div class="guide-label" style="left: 10px; top: 2000px; transform: translateY(-50%);">➡ Y = 2000</div>
 
         <!-- ============================================================ -->
-        <!-- PUNTOS ROJOS -->
+        <!-- PUNTOS ROJOS EN LAS COORDENADAS PRINCIPALES -->
         <!-- ============================================================ -->
 
         <div class="dot dot-1"></div>
         <div class="dot dot-2"></div>
 
         <!-- ============================================================ -->
-        <!-- ETIQUETAS -->
+        <!-- ETIQUETAS DE COORDENADAS PRINCIPALES -->
         <!-- ============================================================ -->
 
         <div class="label label-1">🎯 (550, 750)</div>
@@ -479,6 +488,7 @@
 
         console.log('📱 Tamaño fijo: 1080x2400');
         console.log('🎯 Coordenadas EXACTAS: (550, 750) y (550, 1900)');
+        console.log('📏 Líneas guía: 500, 600, 700, 750★, 800, 1800, 1900★, 2000');
         console.log('💡 Para probar: enviarNotificacion("soy un gato")');
     </script>
 
