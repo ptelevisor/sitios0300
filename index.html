@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1080, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PWA Prueba - Tasker</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
@@ -14,8 +14,8 @@
         }
 
         html, body {
-            width: 1080px;
-            height: 2400px;
+            width: 100%;
+            height: 100%;
             margin: 0;
             padding: 0;
             background: #f0f2f5;
@@ -23,13 +23,15 @@
             overflow: hidden;
         }
 
-        /* Contenedor con TAMAÑO FIJO */
+        /* Contenedor que se ESCALA para ocupar TODA la pantalla */
         #app {
             width: 1080px;
             height: 2400px;
             background: white;
             position: relative;
             overflow: hidden;
+            transform-origin: top left;
+            /* Se escala con JavaScript */
         }
 
         /* ============================================================ */
@@ -65,7 +67,7 @@
         }
 
         /* ============================================================ */
-        /* LÍNEAS GUÍA - TODAS LAS COORDENADAS */
+        /* LÍNEAS GUÍA - TODAS LAS COORDENADAS ABSOLUTAS */
         /* ============================================================ */
 
         /* Línea vertical en X = 550 */
@@ -94,15 +96,16 @@
         /* Etiquetas de las líneas */
         .guide-label {
             position: absolute;
-            font-size: 11px;
+            font-size: 12px;
             color: #dc3545;
             background: rgba(255, 255, 255, 0.95);
-            padding: 2px 8px;
+            padding: 2px 10px;
             border-radius: 4px;
             border: 1px solid rgba(220, 53, 69, 0.3);
             pointer-events: none;
             z-index: 3;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .guide-label-vertical {
@@ -154,6 +157,7 @@
             z-index: 3;
             font-weight: 600;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            white-space: nowrap;
         }
 
         .label-1 {
@@ -392,6 +396,41 @@
 
     <script>
         // ============================================================
+        // ESCALADO AUTOMÁTICO PARA QUE QUEPA EN EL A34
+        // ============================================================
+        function ajustarEscala() {
+            const app = document.getElementById('app');
+            const anchoPantalla = window.innerWidth;
+            const altoPantalla = window.innerHeight;
+
+            // Tamaño base de la PWA
+            const anchoBase = 1080;
+            const altoBase = 2400;
+
+            // Calcular escala para que quepa SIN recortar
+            const escalaX = anchoPantalla / anchoBase;
+            const escalaY = altoPantalla / altoBase;
+            const escala = Math.min(escalaX, escalaY);
+
+            // Aplicar escala
+            app.style.transform = `scale(${escala})`;
+            app.style.transformOrigin = 'top left';
+
+            // Centrar horizontalmente
+            const margenX = (anchoPantalla - (anchoBase * escala)) / 2;
+            const margenY = (altoPantalla - (altoBase * escala)) / 2;
+            app.style.marginLeft = margenX + 'px';
+            app.style.marginTop = margenY + 'px';
+
+            console.log('📱 Escala aplicada:', escala);
+            console.log('📐 Margen X:', margenX, 'Margen Y:', margenY);
+        }
+
+        // Ejecutar al cargar y al cambiar tamaño
+        window.addEventListener('load', ajustarEscala);
+        window.addEventListener('resize', ajustarEscala);
+
+        // ============================================================
         // REGISTRAR SERVICE WORKER
         // ============================================================
         if ('serviceWorker' in navigator) {
@@ -486,7 +525,7 @@
 
         window.enviarNotificacion = enviarNotificacion;
 
-        console.log('📱 Tamaño fijo: 1080x2400');
+        console.log('📱 Tamaño base: 1080x2400');
         console.log('🎯 Coordenadas EXACTAS: (550, 750) y (550, 1900)');
         console.log('📏 Líneas guía: 500, 600, 700, 750★, 800, 1800, 1900★, 2000');
         console.log('💡 Para probar: enviarNotificacion("soy un gato")');
