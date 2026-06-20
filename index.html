@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1080, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PWA Prueba - Tasker</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
@@ -14,125 +13,101 @@
             box-sizing: border-box;
         }
 
-        html,
-        body {
+        html, body {
             width: 100%;
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden;
             background: #f0f2f5;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* === CONTENEDOR: 1080x2400 fijo, escalado para que quepa === */
+        /* Contenedor que OCUPA TODA la pantalla */
         #app {
-            position: relative;
-            width: 1080px;
-            height: 2400px;
-            /* Tamaño fijo de referencia */
-            margin: 0 auto;
+            width: 100vw;
+            height: 100vh;
+            max-width: 1080px;
+            max-height: 2340px;
             background: white;
+            position: relative;
             overflow: hidden;
-            transform-origin: top left;
-            /* Escalamos para que quepa en la pantalla real */
+            border: 2px solid #ddd;
         }
 
-        /* Fondo */
-        #app::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-            z-index: 0;
-        }
-
-        /* === HEADER === */
+        /* Títulos */
         .header {
-            position: absolute;
-            top: 30px;
-            left: 0;
-            right: 0;
             text-align: center;
-            z-index: 2;
-            padding: 0 20px;
+            padding: 20px 10px 0 10px;
+            position: relative;
+            z-index: 5;
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 24px;
             color: #1a1a2e;
-            margin-bottom: 4px;
         }
 
         .subtitle {
             color: #666;
-            font-size: 14px;
+            font-size: 13px;
+            margin-top: 4px;
         }
 
-        .github-badge {
-            display: inline-block;
-            background: #24292e;
-            color: white;
-            padding: 2px 14px;
-            border-radius: 12px;
-            font-size: 11px;
-            margin-bottom: 4px;
-        }
-
-        /* === BOTÓN 1: Centro EXACTO en (550, 750) === */
+        /* === BOTÓN 1: Centro en (550, 750) === */
         #btn-prueba {
             position: absolute;
-            left: 550px;
-            top: 750px;
+            left: 50%;
+            top: 32%;
             transform: translate(-50%, -50%);
-            width: 900px;
-            /* 1080 - 180 de margen = 900px (83% del ancho) */
+            width: 85%;
+            max-width: 450px;
             height: 70px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             z-index: 10;
+            transition: all 0.3s;
         }
 
         #btn-prueba:active {
-            transform: translate(-50%, -50%) scale(0.97);
+            transform: translate(-50%, -50%) scale(0.95);
         }
 
         #btn-prueba:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
         }
 
-        /* === BOTÓN 2: Centro EXACTO en (550, 1900) === */
+        /* === BOTÓN 2: Centro en (550, 1900) === */
         #btn-agendar {
             position: absolute;
-            left: 550px;
-            top: 1900px;
+            left: 50%;
+            top: 79%;
             transform: translate(-50%, -50%);
-            width: 900px;
+            width: 85%;
+            max-width: 450px;
             height: 70px;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
-            transition: all 0.5s ease;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+            z-index: 10;
+            transition: all 0.5s;
             opacity: 0;
             visibility: hidden;
             transform: translate(-50%, -50%) scale(0.8);
-            z-index: 10;
         }
 
         #btn-agendar.visible {
@@ -142,19 +117,19 @@
         }
 
         #btn-agendar:active {
-            transform: translate(-50%, -50%) scale(0.97);
+            transform: translate(-50%, -50%) scale(0.95);
         }
 
         #btn-agendar:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
         }
 
-        /* === Botón "Enviar notificación" === */
-        #btn-enviar-notif {
+        /* Botón enviar notificación */
+        #btn-enviar {
             position: absolute;
             left: 50%;
-            bottom: 60px;
+            bottom: 30px;
             transform: translateX(-50%);
             background: #28a745;
             color: white;
@@ -162,24 +137,24 @@
             padding: 12px 30px;
             border-radius: 25px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
             z-index: 5;
             box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
         }
 
-        #btn-enviar-notif:active {
+        #btn-enviar:active {
             transform: translateX(-50%) scale(0.95);
         }
 
-        /* === Estado de notificación === */
-        #notification-status {
+        /* Estado */
+        #status {
             position: absolute;
             left: 50%;
-            bottom: 120px;
+            bottom: 90px;
             transform: translateX(-50%);
             font-size: 14px;
-            color: #888;
+            color: #666;
             background: #f8f9fa;
             padding: 6px 18px;
             border-radius: 20px;
@@ -188,286 +163,212 @@
             white-space: nowrap;
         }
 
-        #notification-status .highlight {
+        #status span {
             color: #667eea;
-            font-weight: 600;
+            font-weight: bold;
         }
 
-        /* === Log === */
+        /* Log */
         #log {
             position: absolute;
             left: 50%;
-            bottom: 170px;
+            bottom: 140px;
             transform: translateX(-50%);
-            font-size: 12px;
+            font-size: 11px;
             color: #999;
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(0,0,0,0.05);
             padding: 4px 16px;
             border-radius: 12px;
-            max-width: 92%;
+            z-index: 5;
+            max-width: 90%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            border: 1px solid #f1f3f5;
-            z-index: 5;
         }
 
-        /* === ETIQUETAS DE COORDENADAS === */
-        .coord-info {
+        /* Marcadores de coordenadas (solo visuales) */
+        .dot {
             position: absolute;
-            font-size: 13px;
-            color: #6c757d;
-            pointer-events: none;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2px 14px;
-            border-radius: 10px;
-            border: 1px dashed #adb5bd;
-            z-index: 1;
-            font-weight: 500;
-            transform: translateX(-50%);
-        }
-
-        .coord-info.top {
-            left: 550px;
-            top: 690px;
-            /* Arriba del botón */
-        }
-
-        .coord-info.bottom {
-            left: 550px;
-            top: 1840px;
-            /* Arriba del botón inferior */
-        }
-
-        /* === PUNTOS MARCADORES === */
-        .coord-dot {
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            background: rgba(255, 0, 0, 0.35);
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 0, 0, 0.5);
+            border: 2px solid red;
             border-radius: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: 1;
-            border: 2px solid rgba(255, 0, 0, 0.7);
         }
 
-        .coord-dot.top {
-            left: 550px;
-            top: 750px;
+        .dot-1 {
+            left: 50%;
+            top: 32%;
         }
 
-        .coord-dot.bottom {
-            left: 550px;
-            top: 1900px;
+        .dot-2 {
+            left: 50%;
+            top: 79%;
         }
 
-        /* === LÍNEAS GUÍA === */
-        .guide-line.horizontal {
+        .label {
             position: absolute;
-            left: 0;
-            right: 0;
-            height: 1px;
-            border-top: 1px dashed rgba(255, 0, 0, 0.25);
+            font-size: 11px;
+            color: #666;
+            background: rgba(255,255,255,0.9);
+            padding: 2px 10px;
+            border-radius: 10px;
+            border: 1px dashed #ccc;
+            transform: translateX(-50%);
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
         }
 
-        .guide-line.vertical {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            border-left: 1px dashed rgba(255, 0, 0, 0.25);
-            pointer-events: none;
-            z-index: 0;
-            left: 550px;
+        .label-1 {
+            left: 50%;
+            top: 27%;
         }
 
-        /* === RESPONSIVE: ESCALAMOS PARA QUE QUEPA EN EL A34 === */
-        @media (max-width: 1080px) {
-            #app {
-                transform: scale(0.9);
-                /* Escalamos para que quepa */
-                transform-origin: center center;
-            }
-        }
-
-        @media (max-width: 900px) {
-            #app {
-                transform: scale(0.8);
-            }
-        }
-
-        @media (max-width: 700px) {
-            #app {
-                transform: scale(0.65);
-            }
-        }
-
-        @media (max-width: 500px) {
-            #app {
-                transform: scale(0.5);
-            }
+        .label-2 {
+            left: 50%;
+            top: 74%;
         }
     </style>
 </head>
-
 <body>
 
-    <div id="app">
-        <!-- LÍNEAS GUÍA -->
-        <div class="guide-line horizontal" style="top:750px;"></div>
-        <div class="guide-line horizontal" style="top:1900px;"></div>
-        <div class="guide-line vertical"></div>
+<div id="app">
 
-        <!-- PUNTOS MARCADORES -->
-        <div class="coord-dot top"></div>
-        <div class="coord-dot bottom"></div>
+    <!-- Puntos rojos en las coordenadas -->
+    <div class="dot dot-1"></div>
+    <div class="dot dot-2"></div>
 
-        <!-- HEADER -->
-        <div class="header">
-            <span class="github-badge">📱 Samsung A34</span>
-            <h1>🧪 PWA de Prueba</h1>
-            <p class="subtitle">Centros: (550,750) y (550,1900)</p>
-        </div>
+    <!-- Etiquetas -->
+    <div class="label label-1">🎯 (550, 750)</div>
+    <div class="label label-2">🎯 (550, 1900)</div>
 
-        <!-- BOTÓN 1: Centro EXACTO en (550, 750) -->
-        <button id="btn-prueba">🎯 Prueba 100 puntos</button>
-
-        <!-- BOTÓN 2: Centro EXACTO en (550, 1900) -->
-        <button id="btn-agendar">📅 Agendar</button>
-
-        <!-- BOTÓN ENVIAR NOTIFICACIÓN -->
-        <button id="btn-enviar-notif">📨 Enviar "soy un gato"</button>
-
-        <!-- ESTADO -->
-        <div id="notification-status">
-            📨 Notificación: <span class="highlight" id="notif-text">Esperando...</span>
-        </div>
-
-        <!-- LOG -->
-        <div id="log">💡 Listo para recibir notificaciones</div>
-
-        <!-- ETIQUETAS DE COORDENADAS -->
-        <div class="coord-info top">🎯 Centro (550, 750)</div>
-        <div class="coord-info bottom">🎯 Centro (550, 1900)</div>
+    <!-- Header -->
+    <div class="header">
+        <h1>🧪 PWA Prueba Tasker</h1>
+        <p class="subtitle">Centros exactos: (550,750) y (550,1900)</p>
     </div>
 
-    <script>
-        // ============================================================
-        // 1. REGISTRAR SERVICE WORKER
-        // ============================================================
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(reg => {
-                    console.log('✅ SW registrado:', reg);
-                    updateLog('✅ Service Worker listo');
-                })
-                .catch(err => {
-                    console.error('❌ Error SW:', err);
-                    updateLog('❌ Error al registrar SW');
-                });
-        }
+    <!-- Botón 1 -->
+    <button id="btn-prueba">🎯 Prueba 100 puntos</button>
 
-        // ============================================================
-        // 2. SOLICITAR PERMISO DE NOTIFICACIONES
-        // ============================================================
-        if ('Notification' in window && 'serviceWorker' in navigator) {
-            Notification.requestPermission().then(permission => {
-                if (permission === 'granted') {
-                    updateLog('🔔 Permiso concedido');
-                    document.getElementById('notif-text').textContent = '✅ Listo';
-                } else {
-                    updateLog('⚠️ Permiso denegado');
-                    document.getElementById('notif-text').textContent = '🚫 Bloqueado';
-                }
-            });
-        }
+    <!-- Botón 2 -->
+    <button id="btn-agendar">📅 Agendar</button>
 
-        // ============================================================
-        // 3. ESCUCHAR NOTIFICACIONES
-        // ============================================================
-        navigator.serviceWorker.addEventListener('message', (event) => {
-            if (event.data && event.data.type === 'NOTIFICATION_RECEIVED') {
-                const text = event.data.text || 'sin texto';
-                document.getElementById('notif-text').textContent = `"${text}"`;
-                updateLog(`📨 Notificación: "${text}"`);
+    <!-- Enviar notificación -->
+    <button id="btn-enviar">📨 Enviar "soy un gato"</button>
 
-                if (text === 'soy un gato') {
-                    updateLog('🐱 ¡Texto coincide! Clic en "Prueba 100 puntos"');
-                    document.getElementById('btn-prueba').click();
-                }
-            }
-        });
+    <!-- Estado -->
+    <div id="status">📨 Notificación: <span id="notif-text">Esperando...</span></div>
 
-        // ============================================================
-        // 4. LÓGICA DE BOTONES
-        // ============================================================
-        const btnPrueba = document.getElementById('btn-prueba');
-        const btnAgendar = document.getElementById('btn-agendar');
-        const btnEnviar = document.getElementById('btn-enviar-notif');
+    <!-- Log -->
+    <div id="log">💡 Listo</div>
 
-        btnPrueba.addEventListener('click', function() {
-            updateLog('🖱️ Clic en (550, 750)');
-            this.disabled = true;
-            this.textContent = '⏳ Cargando...';
+</div>
 
-            setTimeout(() => {
-                btnAgendar.classList.add('visible');
-                updateLog('✅ Botón "Agendar" visible (550, 1900)');
-                this.disabled = false;
-                this.textContent = '🎯 Prueba 100 puntos';
-            }, 3000);
-        });
+<script>
+    // ============================================================
+    // REGISTRAR SERVICE WORKER
+    // ============================================================
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(() => log('✅ Service Worker listo'))
+            .catch(() => log('❌ Error SW'));
+    }
 
-        btnAgendar.addEventListener('click', function() {
-            updateLog('🖱️ Clic en (550, 1900) → ¡AGENDADO! 🎉');
-            this.textContent = '✅ ¡Agendado!';
-            this.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
-            this.style.boxShadow = '0 6px 20px rgba(67, 233, 123, 0.4)';
-            this.disabled = true;
-            setTimeout(() => {
-                updateLog('🎉 Proceso completado');
-            }, 500);
-        });
-
-        btnEnviar.addEventListener('click', function() {
-            enviarNotificacion('soy un gato');
-        });
-
-        // ============================================================
-        // 5. FUNCIONES
-        // ============================================================
-        function updateLog(message) {
-            const logEl = document.getElementById('log');
-            logEl.textContent = '💡 ' + message;
-            console.log('[PWA]', message);
-        }
-
-        function enviarNotificacion(texto = 'soy un gato') {
-            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-                navigator.serviceWorker.controller.postMessage({
-                    type: 'TEST_NOTIFICATION',
-                    text: texto
-                });
-                updateLog(`📤 Enviando: "${texto}"`);
+    // ============================================================
+    // PERMISO DE NOTIFICACIONES
+    // ============================================================
+    if ('Notification' in window) {
+        Notification.requestPermission().then(p => {
+            if (p === 'granted') {
+                document.getElementById('notif-text').textContent = '✅ Listo';
+                log('🔔 Permiso concedido');
             } else {
-                updateLog('❌ SW no activo');
+                document.getElementById('notif-text').textContent = '🚫 Bloqueado';
+                log('⚠️ Permiso denegado');
+            }
+        });
+    }
+
+    // ============================================================
+    // ESCUCHAR NOTIFICACIONES DEL SW
+    // ============================================================
+    navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'NOTIFICATION_RECEIVED') {
+            const text = event.data.text || 'sin texto';
+            document.getElementById('notif-text').textContent = `"${text}"`;
+            log(`📨 Notificación: "${text}"`);
+
+            if (text === 'soy un gato') {
+                log('🐱 ¡Coincide! Clic en "Prueba 100 puntos"');
+                document.getElementById('btn-prueba').click();
             }
         }
+    });
 
-        window.enviarNotificacion = enviarNotificacion;
+    // ============================================================
+    // LÓGICA DE BOTONES
+    // ============================================================
+    const btnPrueba = document.getElementById('btn-prueba');
+    const btnAgendar = document.getElementById('btn-agendar');
+    const btnEnviar = document.getElementById('btn-enviar');
 
-        // Mostrar información de depuración
-        const app = document.getElementById('app');
-        const scale = app.getBoundingClientRect().width / 1080;
-        console.log('📱 Resolución real:', window.innerWidth, 'x', window.innerHeight);
-        console.log('📏 Escala aplicada:', scale);
-        console.log('🎯 Coordenadas: (550, 750) y (550, 1900)');
-        console.log('💡 Para probar: enviarNotificacion("soy un gato")');
-    </script>
+    btnPrueba.addEventListener('click', function() {
+        log('🖱️ Clic en (550, 750)');
+        this.disabled = true;
+        this.textContent = '⏳ Cargando...';
+
+        setTimeout(() => {
+            btnAgendar.classList.add('visible');
+            log('✅ Botón "Agendar" visible (550, 1900)');
+            this.disabled = false;
+            this.textContent = '🎯 Prueba 100 puntos';
+        }, 3000);
+    });
+
+    btnAgendar.addEventListener('click', function() {
+        log('🖱️ Clic en (550, 1900) → ¡AGENDADO! 🎉');
+        this.textContent = '✅ ¡Agendado!';
+        this.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
+        this.disabled = true;
+        setTimeout(() => log('🎉 Proceso completado'), 500);
+    });
+
+    btnEnviar.addEventListener('click', function() {
+        enviarNotificacion('soy un gato');
+    });
+
+    // ============================================================
+    // FUNCIONES
+    // ============================================================
+    function log(msg) {
+        const el = document.getElementById('log');
+        el.textContent = '💡 ' + msg;
+        console.log('[PWA]', msg);
+    }
+
+    function enviarNotificacion(texto = 'soy un gato') {
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+                type: 'TEST_NOTIFICATION',
+                text: texto
+            });
+            log(`📤 Enviando: "${texto}"`);
+        } else {
+            log('❌ SW no activo. Recarga.');
+        }
+    }
+
+    window.enviarNotificacion = enviarNotificacion;
+
+    // Info
+    console.log('📱 Resolución:', window.innerWidth, 'x', window.innerHeight);
+    console.log('🎯 Coordenadas: (550,750) y (550,1900)');
+    console.log('💡 Para probar: enviarNotificacion("soy un gato")');
+</script>
 
 </body>
-
 </html>
