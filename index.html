@@ -26,20 +26,19 @@
             overflow: hidden;
         }
 
-        /* Contenedor con TAMAÑO FIJO de 1080x2400 */
+        /* Contenedor con TAMAÑO FIJO de 1080x2340 (A34) */
         #app {
             width: 1080px;
-            height: 2400px;
+            height: 2340px;
             background: white;
             position: relative;
             overflow: hidden;
             border: 2px solid #ddd;
             transform-origin: center center;
-            /* Se escalará automáticamente para que quepa */
         }
 
         /* ============================================================ */
-        /* LÍNEAS GUÍA - EXACTAS EN PÍXELES */
+        /* LÍNEAS GUÍA - EXACTAS PARA A34 */
         /* ============================================================ */
 
         /* Línea vertical en X=550 */
@@ -66,12 +65,12 @@
             z-index: 2;
         }
 
-        /* Línea horizontal en Y=1900 */
+        /* Línea horizontal en Y=1850 (ajustado para A34) */
         .guide-line-horizontal-2 {
             position: absolute;
             left: 0;
             right: 0;
-            top: 1900px;
+            top: 1850px;
             height: 0;
             border-top: 2px dashed rgba(255, 0, 0, 0.5);
             pointer-events: none;
@@ -106,7 +105,7 @@
 
         .guide-label-h2 {
             left: 10px;
-            top: 1900px;
+            top: 1850px;
             transform: translateY(-50%);
         }
 
@@ -133,7 +132,7 @@
 
         .dot-2 {
             left: 550px;
-            top: 1900px;
+            top: 1850px;
         }
 
         /* ============================================================ */
@@ -162,7 +161,7 @@
 
         .label-2 {
             left: 550px;
-            top: 1850px;
+            top: 1800px;
         }
 
         /* ============================================================ */
@@ -187,8 +186,18 @@
             margin-top: 4px;
         }
 
+        .device-badge {
+            display: inline-block;
+            background: #24292e;
+            color: white;
+            padding: 2px 14px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
         /* ============================================================ */
-        /* BOTONES - CENTRO EXACTO EN LAS COORDENADAS */
+        /* BOTONES - CENTRO EXACTO EN LAS COORDENADAS DEL A34 */
         /* ============================================================ */
 
         /* Botón 1: Centro EXACTO en (550, 750) */
@@ -220,11 +229,11 @@
             cursor: not-allowed;
         }
 
-        /* Botón 2: Centro EXACTO en (550, 1900) */
+        /* Botón 2: Centro EXACTO en (550, 1850) para A34 */
         #btn-agendar {
             position: absolute;
             left: 550px;
-            top: 1900px;
+            top: 1850px;
             transform: translate(-50%, -50%);
             width: 900px;
             height: 70px;
@@ -355,7 +364,7 @@
 <div id="app">
 
     <!-- ============================================================ -->
-    <!-- LÍNEAS GUÍA EN PÍXELES EXACTOS -->
+    <!-- LÍNEAS GUÍA EN PÍXELES EXACTOS PARA A34 -->
     <!-- ============================================================ -->
 
     <div class="guide-line-vertical"></div>
@@ -365,10 +374,10 @@
     <div class="guide-label guide-label-h1">➡ Y = 750</div>
 
     <div class="guide-line-horizontal-2"></div>
-    <div class="guide-label guide-label-h2">➡ Y = 1900</div>
+    <div class="guide-label guide-label-h2">➡ Y = 1850</div>
 
     <!-- ============================================================ -->
-    <!-- PUNTOS ROJOS EN (550, 750) y (550, 1900) -->
+    <!-- PUNTOS ROJOS EN (550, 750) y (550, 1850) -->
     <!-- ============================================================ -->
 
     <div class="dot dot-1"></div>
@@ -379,15 +388,16 @@
     <!-- ============================================================ -->
 
     <div class="label label-1">🎯 (550, 750)</div>
-    <div class="label label-2">🎯 (550, 1900)</div>
+    <div class="label label-2">🎯 (550, 1850)</div>
 
     <!-- ============================================================ -->
     <!-- HEADER -->
     <!-- ============================================================ -->
 
     <div class="header">
+        <span class="device-badge">📱 Samsung A34</span>
         <h1>🧪 PWA Prueba Tasker</h1>
-        <p class="subtitle">Centros EXACTOS: (550,750) y (550,1900)</p>
+        <p class="subtitle">Centros EXACTOS: (550,750) y (550,1850)</p>
     </div>
 
     <!-- ============================================================ -->
@@ -462,14 +472,14 @@
 
         setTimeout(() => {
             btnAgendar.classList.add('visible');
-            log('✅ Botón "Agendar" visible (550, 1900)');
+            log('✅ Botón "Agendar" visible (550, 1850)');
             this.disabled = false;
             this.textContent = '🎯 Prueba 100 puntos';
         }, 3000);
     });
 
     btnAgendar.addEventListener('click', function() {
-        log('🖱️ Clic en (550, 1900) → ¡AGENDADO! 🎉');
+        log('🖱️ Clic en (550, 1850) → ¡AGENDADO! 🎉');
         this.textContent = '✅ ¡Agendado!';
         this.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
         this.disabled = true;
@@ -503,8 +513,8 @@
 
     window.enviarNotificacion = enviarNotificacion;
 
-    console.log('📐 Tamaño fijo: 1080x2400');
-    console.log('🎯 Coordenadas EXACTAS: (550, 750) y (550, 1900)');
+    console.log('📱 Samsung A34 - 1080x2340');
+    console.log('🎯 Coordenadas EXACTAS: (550, 750) y (550, 1850)');
     console.log('💡 Para probar: enviarNotificacion("soy un gato")');
 </script>
 
