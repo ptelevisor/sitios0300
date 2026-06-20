@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=1080, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PWA Prueba - Tasker</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
@@ -23,28 +23,29 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
-        /* Contenedor que OCUPA TODA la pantalla */
+        /* Contenedor con TAMAÑO FIJO de 1080x2400 */
         #app {
-            width: 100vw;
-            height: 100vh;
-            max-width: 1080px;
-            max-height: 2340px;
+            width: 1080px;
+            height: 2400px;
             background: white;
             position: relative;
             overflow: hidden;
             border: 2px solid #ddd;
+            transform-origin: center center;
+            /* Se escalará automáticamente para que quepa */
         }
 
         /* ============================================================ */
-        /* LÍNEAS GUÍA */
+        /* LÍNEAS GUÍA - EXACTAS EN PÍXELES */
         /* ============================================================ */
 
         /* Línea vertical en X=550 */
         .guide-line-vertical {
             position: absolute;
-            left: 50%;
+            left: 550px;
             top: 0;
             bottom: 0;
             width: 0;
@@ -58,7 +59,7 @@
             position: absolute;
             left: 0;
             right: 0;
-            top: 32%;
+            top: 750px;
             height: 0;
             border-top: 2px dashed rgba(255, 0, 0, 0.5);
             pointer-events: none;
@@ -70,20 +71,20 @@
             position: absolute;
             left: 0;
             right: 0;
-            top: 79%;
+            top: 1900px;
             height: 0;
             border-top: 2px dashed rgba(255, 0, 0, 0.5);
             pointer-events: none;
             z-index: 2;
         }
 
-        /* Pequeñas etiquetas en las líneas */
+        /* Etiquetas de líneas */
         .guide-label {
             position: absolute;
-            font-size: 11px;
+            font-size: 12px;
             color: #dc3545;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2px 8px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2px 10px;
             border-radius: 4px;
             border: 1px solid rgba(220, 53, 69, 0.3);
             pointer-events: none;
@@ -92,62 +93,117 @@
         }
 
         .guide-label-vertical {
-            left: 50%;
+            left: 550px;
             top: 10px;
             transform: translateX(-50%);
         }
 
         .guide-label-h1 {
             left: 10px;
-            top: 32%;
+            top: 750px;
             transform: translateY(-50%);
         }
 
         .guide-label-h2 {
             left: 10px;
-            top: 79%;
+            top: 1900px;
             transform: translateY(-50%);
         }
 
         /* ============================================================ */
-        /* Títulos */
+        /* PUNTOS ROJOS EXACTOS */
         /* ============================================================ */
+
+        .dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: rgba(255, 0, 0, 0.4);
+            border: 2px solid #dc3545;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .dot-1 {
+            left: 550px;
+            top: 750px;
+        }
+
+        .dot-2 {
+            left: 550px;
+            top: 1900px;
+        }
+
+        /* ============================================================ */
+        /* ETIQUETAS DE COORDENADAS */
+        /* ============================================================ */
+
+        .label {
+            position: absolute;
+            font-size: 13px;
+            color: #495057;
+            background: rgba(255,255,255,0.95);
+            padding: 4px 14px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 3;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .label-1 {
+            left: 550px;
+            top: 700px;
+        }
+
+        .label-2 {
+            left: 550px;
+            top: 1850px;
+        }
+
+        /* ============================================================ */
+        /* HEADER */
+        /* ============================================================ */
+
         .header {
             text-align: center;
-            padding: 20px 10px 0 10px;
+            padding: 25px 20px 0 20px;
             position: relative;
             z-index: 5;
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 28px;
             color: #1a1a2e;
         }
 
         .subtitle {
             color: #666;
-            font-size: 13px;
+            font-size: 14px;
             margin-top: 4px;
         }
 
         /* ============================================================ */
-        /* BOTONES */
+        /* BOTONES - CENTRO EXACTO EN LAS COORDENADAS */
         /* ============================================================ */
 
-        /* Botón 1: Centro en (550, 750) */
+        /* Botón 1: Centro EXACTO en (550, 750) */
         #btn-prueba {
             position: absolute;
-            left: 50%;
-            top: 32%;
+            left: 550px;
+            top: 750px;
             transform: translate(-50%, -50%);
-            width: 85%;
-            max-width: 450px;
+            width: 900px;
             height: 70px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
@@ -164,20 +220,19 @@
             cursor: not-allowed;
         }
 
-        /* Botón 2: Centro en (550, 1900) */
+        /* Botón 2: Centro EXACTO en (550, 1900) */
         #btn-agendar {
             position: absolute;
-            left: 50%;
-            top: 79%;
+            left: 550px;
+            top: 1900px;
             transform: translate(-50%, -50%);
-            width: 85%;
-            max-width: 450px;
+            width: 900px;
             height: 70px;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
@@ -207,14 +262,14 @@
         #btn-enviar {
             position: absolute;
             left: 50%;
-            bottom: 30px;
+            bottom: 40px;
             transform: translateX(-50%);
             background: #28a745;
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 35px;
             border-radius: 25px;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: bold;
             cursor: pointer;
             z-index: 5;
@@ -232,12 +287,12 @@
         #status {
             position: absolute;
             left: 50%;
-            bottom: 90px;
+            bottom: 100px;
             transform: translateX(-50%);
-            font-size: 14px;
+            font-size: 15px;
             color: #666;
             background: #f8f9fa;
-            padding: 6px 18px;
+            padding: 8px 20px;
             border-radius: 20px;
             border: 1px solid #e9ecef;
             z-index: 5;
@@ -252,12 +307,12 @@
         #log {
             position: absolute;
             left: 50%;
-            bottom: 140px;
+            bottom: 155px;
             transform: translateX(-50%);
-            font-size: 11px;
+            font-size: 12px;
             color: #999;
             background: rgba(0,0,0,0.05);
-            padding: 4px 16px;
+            padding: 5px 18px;
             border-radius: 12px;
             z-index: 5;
             max-width: 90%;
@@ -267,88 +322,30 @@
         }
 
         /* ============================================================ */
-        /* PUNTOS ROJOS EN LAS COORDENADAS */
+        /* ESCALA AUTOMÁTICA PARA QUE QUEPA EN EL A34 */
         /* ============================================================ */
 
-        .dot {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            background: rgba(255, 0, 0, 0.4);
-            border: 2px solid #dc3545;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 3;
+        @media (max-width: 1080px) {
+            #app {
+                transform: scale(0.9);
+            }
         }
 
-        .dot-1 {
-            left: 50%;
-            top: 32%;
+        @media (max-width: 900px) {
+            #app {
+                transform: scale(0.8);
+            }
         }
 
-        .dot-2 {
-            left: 50%;
-            top: 79%;
+        @media (max-width: 700px) {
+            #app {
+                transform: scale(0.65);
+            }
         }
-
-        /* ============================================================ */
-        /* ETIQUETAS DE COORDENADAS */
-        /* ============================================================ */
-
-        .label {
-            position: absolute;
-            font-size: 12px;
-            color: #495057;
-            background: rgba(255,255,255,0.95);
-            padding: 3px 12px;
-            border-radius: 10px;
-            border: 1px solid #dee2e6;
-            transform: translateX(-50%);
-            pointer-events: none;
-            z-index: 3;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .label-1 {
-            left: 50%;
-            top: 27%;
-        }
-
-        .label-2 {
-            left: 50%;
-            top: 74%;
-        }
-
-        /* ============================================================ */
-        /* RESPONSIVE */
-        /* ============================================================ */
 
         @media (max-width: 500px) {
-            #btn-prueba, #btn-agendar {
-                height: 56px;
-                font-size: 16px;
-                width: 90%;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            .guide-label {
-                font-size: 9px;
-                padding: 1px 6px;
-            }
-
-            .label {
-                font-size: 10px;
-                padding: 2px 8px;
-            }
-
-            .dot {
-                width: 10px;
-                height: 10px;
+            #app {
+                transform: scale(0.5);
             }
         }
     </style>
@@ -358,30 +355,27 @@
 <div id="app">
 
     <!-- ============================================================ -->
-    <!-- LÍNEAS GUÍA -->
+    <!-- LÍNEAS GUÍA EN PÍXELES EXACTOS -->
     <!-- ============================================================ -->
 
-    <!-- Línea vertical en X=550 -->
     <div class="guide-line-vertical"></div>
     <div class="guide-label guide-label-vertical">⬇ X = 550</div>
 
-    <!-- Línea horizontal en Y=750 -->
     <div class="guide-line-horizontal-1"></div>
     <div class="guide-label guide-label-h1">➡ Y = 750</div>
 
-    <!-- Línea horizontal en Y=1900 -->
     <div class="guide-line-horizontal-2"></div>
     <div class="guide-label guide-label-h2">➡ Y = 1900</div>
 
     <!-- ============================================================ -->
-    <!-- PUNTOS ROJOS EN LAS COORDENADAS -->
+    <!-- PUNTOS ROJOS EN (550, 750) y (550, 1900) -->
     <!-- ============================================================ -->
 
     <div class="dot dot-1"></div>
     <div class="dot dot-2"></div>
 
     <!-- ============================================================ -->
-    <!-- ETIQUETAS DE COORDENADAS -->
+    <!-- ETIQUETAS -->
     <!-- ============================================================ -->
 
     <div class="label label-1">🎯 (550, 750)</div>
@@ -393,11 +387,11 @@
 
     <div class="header">
         <h1>🧪 PWA Prueba Tasker</h1>
-        <p class="subtitle">Centros exactos: (550,750) y (550,1900)</p>
+        <p class="subtitle">Centros EXACTOS: (550,750) y (550,1900)</p>
     </div>
 
     <!-- ============================================================ -->
-    <!-- BOTONES -->
+    <!-- BOTONES CON CENTRO EXACTO -->
     <!-- ============================================================ -->
 
     <button id="btn-prueba">🎯 Prueba 100 puntos</button>
@@ -509,9 +503,8 @@
 
     window.enviarNotificacion = enviarNotificacion;
 
-    // Info
-    console.log('📱 Resolución:', window.innerWidth, 'x', window.innerHeight);
-    console.log('🎯 Coordenadas: (550,750) y (550,1900)');
+    console.log('📐 Tamaño fijo: 1080x2400');
+    console.log('🎯 Coordenadas EXACTAS: (550, 750) y (550, 1900)');
     console.log('💡 Para probar: enviarNotificacion("soy un gato")');
 </script>
 
