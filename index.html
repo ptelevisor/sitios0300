@@ -23,7 +23,6 @@
             overflow: hidden;
         }
 
-        /* Contenedor que se ESCALA para ocupar TODA la pantalla */
         #app {
             width: 1080px;
             height: 2400px;
@@ -32,10 +31,6 @@
             overflow: hidden;
             transform-origin: top left;
         }
-
-        /* ============================================================ */
-        /* HEADER */
-        /* ============================================================ */
 
         .header {
             text-align: center;
@@ -65,11 +60,6 @@
             margin-bottom: 4px;
         }
 
-        /* ============================================================ */
-        /* LÍNEAS GUÍA - TODAS LAS COORDENADAS ABSOLUTAS */
-        /* ============================================================ */
-
-        /* Línea vertical en X = 550 */
         .guide-line-vertical {
             position: absolute;
             left: 550px;
@@ -81,7 +71,6 @@
             z-index: 2;
         }
 
-        /* Líneas horizontales */
         .guide-line-horizontal {
             position: absolute;
             left: 0;
@@ -92,7 +81,6 @@
             z-index: 2;
         }
 
-        /* Etiquetas de las líneas */
         .guide-label {
             position: absolute;
             font-size: 12px;
@@ -113,10 +101,6 @@
             transform: translateX(-50%);
         }
 
-        /* ============================================================ */
-        /* PUNTOS ROJOS - CENTROS DE LOS BOTONES */
-        /* ============================================================ */
-
         .dot {
             position: absolute;
             width: 16px;
@@ -129,21 +113,15 @@
             z-index: 3;
         }
 
-        /* Centro del botón 1: Y = 700 */
         .dot-1 {
             left: 550px;
             top: 700px;
         }
 
-        /* Centro del botón 2: Y = 2075 */
         .dot-2 {
             left: 550px;
             top: 2075px;
         }
-
-        /* ============================================================ */
-        /* ETIQUETAS DE COORDENADAS */
-        /* ============================================================ */
 
         .label {
             position: absolute;
@@ -172,7 +150,7 @@
         }
 
         /* ============================================================ */
-        /* BOTÓN 1: DESDE Y=500 HASTA Y=900 */
+        /* BOTÓN 1: Aparece después de 5 segundos */
         /* ============================================================ */
 
         #btn-prueba {
@@ -182,7 +160,6 @@
             transform: translate(-50%, -50%);
             width: 900px;
             height: 400px;
-            /* 900 - 500 = 400 */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
@@ -192,7 +169,16 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             z-index: 10;
-            transition: all 0.3s;
+            transition: all 0.5s;
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+
+        #btn-prueba.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         #btn-prueba:active {
@@ -205,7 +191,7 @@
         }
 
         /* ============================================================ */
-        /* BOTÓN 2: DESDE Y=2000 HASTA Y=2150 */
+        /* BOTÓN 2: Aparece después de 5 segundos tras clic en botón 1 */
         /* ============================================================ */
 
         #btn-agendar {
@@ -215,7 +201,6 @@
             transform: translate(-50%, -50%);
             width: 900px;
             height: 150px;
-            /* 2150 - 2000 = 150 */
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             border: none;
@@ -247,74 +232,26 @@
         }
 
         /* ============================================================ */
-        /* BOTÓN ENVIAR */
+        /* LOG */
         /* ============================================================ */
-
-        #btn-enviar {
-            position: absolute;
-            left: 540px;
-            bottom: 40px;
-            transform: translateX(-50%);
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 14px 35px;
-            border-radius: 25px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 5;
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-        }
-
-        #btn-enviar:active {
-            transform: translateX(-50%) scale(0.95);
-        }
-
-        /* ============================================================ */
-        /* ESTADO Y LOG */
-        /* ============================================================ */
-
-        #status {
-            position: absolute;
-            left: 540px;
-            bottom: 100px;
-            transform: translateX(-50%);
-            font-size: 15px;
-            color: #666;
-            background: #f8f9fa;
-            padding: 8px 20px;
-            border-radius: 20px;
-            border: 1px solid #e9ecef;
-            z-index: 5;
-            white-space: nowrap;
-        }
-
-        #status span {
-            color: #667eea;
-            font-weight: bold;
-        }
 
         #log {
             position: absolute;
             left: 540px;
-            bottom: 155px;
+            bottom: 100px;
             transform: translateX(-50%);
-            font-size: 12px;
-            color: #999;
-            background: rgba(0, 0, 0, 0.05);
-            padding: 5px 18px;
+            font-size: 13px;
+            color: #666;
+            background: rgba(0, 0, 0, 0.08);
+            padding: 8px 20px;
             border-radius: 12px;
             z-index: 5;
             max-width: 90%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            font-family: monospace;
         }
-
-        /* ============================================================ */
-        /* RECTÁNGULOS DE REFERENCIA (opcional) */
-        /* ============================================================ */
 
         .range-box {
             position: absolute;
@@ -343,23 +280,11 @@
 
     <div id="app">
 
-        <!-- ============================================================ -->
-        <!-- RECTÁNGULOS DE REFERENCIA (rangos de los botones) -->
-        <!-- ============================================================ -->
-
         <div class="range-box range-box-1"></div>
         <div class="range-box range-box-2"></div>
 
-        <!-- ============================================================ -->
-        <!-- LÍNEA VERTICAL -->
-        <!-- ============================================================ -->
-
         <div class="guide-line-vertical"></div>
         <div class="guide-label guide-label-vertical">⬇ X = 550</div>
-
-        <!-- ============================================================ -->
-        <!-- LÍNEAS HORIZONTALES - TODAS LAS SOLICITADAS -->
-        <!-- ============================================================ -->
 
         <!-- Y = 500 -->
         <div class="guide-line-horizontal" style="top: 500px;"></div>
@@ -369,7 +294,7 @@
         <div class="guide-line-horizontal" style="top: 600px;"></div>
         <div class="guide-label" style="left: 10px; top: 600px; transform: translateY(-50%);">➡ Y = 600</div>
 
-        <!-- Y = 700 (centro botón 1) -->
+        <!-- Y = 700 -->
         <div class="guide-line-horizontal" style="top: 700px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
         <div class="guide-label" style="left: 10px; top: 700px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 700 ★</div>
 
@@ -389,35 +314,23 @@
         <div class="guide-line-horizontal" style="top: 1900px;"></div>
         <div class="guide-label" style="left: 10px; top: 1900px; transform: translateY(-50%);">➡ Y = 1900</div>
 
-        <!-- Y = 2000 (inicio botón 2) -->
+        <!-- Y = 2000 -->
         <div class="guide-line-horizontal" style="top: 2000px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
         <div class="guide-label" style="left: 10px; top: 2000px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 2000 ★</div>
 
-        <!-- Y = 2075 (centro botón 2) -->
+        <!-- Y = 2075 -->
         <div class="guide-line-horizontal" style="top: 2075px; border-color: rgba(0, 0, 255, 0.8); border-width: 2px; border-style: dotted;"></div>
         <div class="guide-label" style="left: 10px; top: 2075px; transform: translateY(-50%); background: rgba(0, 0, 255, 0.1); border-color: #0066cc; color: #0066cc;">⬅ Y = 2075 (centro)</div>
 
-        <!-- Y = 2150 (fin botón 2) -->
+        <!-- Y = 2150 -->
         <div class="guide-line-horizontal" style="top: 2150px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
         <div class="guide-label" style="left: 10px; top: 2150px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 2150 ★</div>
-
-        <!-- ============================================================ -->
-        <!-- PUNTOS ROJOS - CENTROS DE LOS BOTONES -->
-        <!-- ============================================================ -->
 
         <div class="dot dot-1"></div>
         <div class="dot dot-2"></div>
 
-        <!-- ============================================================ -->
-        <!-- ETIQUETAS DE COORDENADAS -->
-        <!-- ============================================================ -->
-
         <div class="label label-1">🎯 Centro (550, 700)</div>
         <div class="label label-2">🎯 Centro (550, 2075)</div>
-
-        <!-- ============================================================ -->
-        <!-- HEADER -->
-        <!-- ============================================================ -->
 
         <div class="header">
             <span class="device-badge">📱 Samsung A34</span>
@@ -425,35 +338,20 @@
             <p class="subtitle">Botón 1: Y=500 a 900 | Botón 2: Y=2000 a 2150</p>
         </div>
 
-        <!-- ============================================================ -->
-        <!-- BOTONES -->
-        <!-- ============================================================ -->
-
         <button id="btn-prueba">🎯 Prueba 100 puntos</button>
         <button id="btn-agendar">📅 Agendar</button>
-        <button id="btn-enviar">📨 Enviar "soy un gato"</button>
 
-        <!-- ============================================================ -->
-        <!-- ESTADO Y LOG -->
-        <!-- ============================================================ -->
-
-        <div id="status">📨 Notificación: <span id="notif-text">Esperando...</span></div>
         <div id="log">💡 Listo</div>
 
     </div>
 
     <script>
-        // ============================================================
-        // ESCALADO AUTOMÁTICO
-        // ============================================================
         function ajustarEscala() {
             const app = document.getElementById('app');
             const anchoPantalla = window.innerWidth;
             const altoPantalla = window.innerHeight;
-
             const anchoBase = 1080;
             const altoBase = 2400;
-
             const escalaX = anchoPantalla / anchoBase;
             const escalaY = altoPantalla / altoBase;
             const escala = Math.min(escalaX, escalaY);
@@ -470,53 +368,26 @@
         window.addEventListener('load', ajustarEscala);
         window.addEventListener('resize', ajustarEscala);
 
-        // ============================================================
-        // REGISTRAR SERVICE WORKER
-        // ============================================================
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(() => log('✅ Service Worker listo'))
-                .catch(() => log('❌ Error SW'));
+        function log(msg) {
+            const el = document.getElementById('log');
+            el.textContent = '💡 ' + msg;
+            console.log('[PWA]', msg);
         }
 
-        // ============================================================
-        // PERMISO DE NOTIFICACIONES
-        // ============================================================
-        if ('Notification' in window) {
-            Notification.requestPermission().then(p => {
-                if (p === 'granted') {
-                    document.getElementById('notif-text').textContent = '✅ Listo';
-                    log('🔔 Permiso concedido');
-                } else {
-                    document.getElementById('notif-text').textContent = '🚫 Bloqueado';
-                    log('⚠️ Permiso denegado');
-                }
-            });
-        }
-
-        // ============================================================
-        // ESCUCHAR NOTIFICACIONES DEL SW
-        // ============================================================
-        navigator.serviceWorker.addEventListener('message', (event) => {
-            if (event.data && event.data.type === 'NOTIFICATION_RECEIVED') {
-                const text = event.data.text || 'sin texto';
-                document.getElementById('notif-text').textContent = `"${text}"`;
-                log(`📨 Notificación: "${text}"`);
-
-                if (text === 'soy un gato') {
-                    log('🐱 ¡Coincide! Clic en "Prueba 100 puntos"');
-                    document.getElementById('btn-prueba').click();
-                }
-            }
-        });
-
-        // ============================================================
-        // LÓGICA DE BOTONES
-        // ============================================================
         const btnPrueba = document.getElementById('btn-prueba');
         const btnAgendar = document.getElementById('btn-agendar');
-        const btnEnviar = document.getElementById('btn-enviar');
 
+        // ============================================================
+        // BOTÓN 1: Aparece después de 5 segundos
+        // ============================================================
+        setTimeout(() => {
+            btnPrueba.classList.add('visible');
+            log('✅ Botón 1 visible (Y=500 a 900)');
+        }, 5000);
+
+        // ============================================================
+        // CLIC EN BOTÓN 1: Botón 2 aparece después de 5 segundos
+        // ============================================================
         btnPrueba.addEventListener('click', function() {
             log('🖱️ Clic en botón 1 (centro Y=700)');
             this.disabled = true;
@@ -527,9 +398,12 @@
                 log('✅ Botón 2 visible (Y=2000 a 2150)');
                 this.disabled = false;
                 this.textContent = '🎯 Prueba 100 puntos';
-            }, 3000);
+            }, 5000);
         });
 
+        // ============================================================
+        // CLIC EN BOTÓN 2
+        // ============================================================
         btnAgendar.addEventListener('click', function() {
             log('🖱️ Clic en botón 2 (centro Y=2075) → ¡AGENDADO! 🎉');
             this.textContent = '✅ ¡Agendado!';
@@ -538,37 +412,9 @@
             setTimeout(() => log('🎉 Proceso completado'), 500);
         });
 
-        btnEnviar.addEventListener('click', function() {
-            enviarNotificacion('soy un gato');
-        });
-
-        // ============================================================
-        // FUNCIONES
-        // ============================================================
-        function log(msg) {
-            const el = document.getElementById('log');
-            el.textContent = '💡 ' + msg;
-            console.log('[PWA]', msg);
-        }
-
-        function enviarNotificacion(texto = 'soy un gato') {
-            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-                navigator.serviceWorker.controller.postMessage({
-                    type: 'TEST_NOTIFICATION',
-                    text: texto
-                });
-                log(`📤 Enviando: "${texto}"`);
-            } else {
-                log('❌ SW no activo. Recarga.');
-            }
-        }
-
-        window.enviarNotificacion = enviarNotificacion;
-
         console.log('📱 Tamaño base: 1080x2400');
-        console.log('📏 Botón 1: Y=500 a 900 (centro Y=700)');
-        console.log('📏 Botón 2: Y=2000 a 2150 (centro Y=2075)');
-        console.log('💡 Para probar: enviarNotificacion("soy un gato")');
+        console.log('📏 Botón 1: Y=500 a 900 (centro Y=700) - Aparece en 5s');
+        console.log('📏 Botón 2: Y=2000 a 2150 (centro Y=2075) - Aparece en 5s tras clic');
     </script>
 
 </body>
