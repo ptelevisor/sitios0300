@@ -31,7 +31,6 @@
             position: relative;
             overflow: hidden;
             transform-origin: top left;
-            /* Se escala con JavaScript */
         }
 
         /* ============================================================ */
@@ -115,7 +114,7 @@
         }
 
         /* ============================================================ */
-        /* PUNTOS ROJOS EN LAS COORDENADAS PRINCIPALES */
+        /* PUNTOS ROJOS - CENTROS DE LOS BOTONES */
         /* ============================================================ */
 
         .dot {
@@ -130,18 +129,20 @@
             z-index: 3;
         }
 
+        /* Centro del botón 1: Y = 700 */
         .dot-1 {
             left: 550px;
-            top: 750px;
+            top: 700px;
         }
 
+        /* Centro del botón 2: Y = 2075 */
         .dot-2 {
             left: 550px;
-            top: 1900px;
+            top: 2075px;
         }
 
         /* ============================================================ */
-        /* ETIQUETAS DE COORDENADAS PRINCIPALES */
+        /* ETIQUETAS DE COORDENADAS */
         /* ============================================================ */
 
         .label {
@@ -162,30 +163,31 @@
 
         .label-1 {
             left: 550px;
-            top: 690px;
+            top: 640px;
         }
 
         .label-2 {
             left: 550px;
-            top: 1840px;
+            top: 2020px;
         }
 
         /* ============================================================ */
-        /* BOTONES - COORDENADAS ABSOLUTAS */
+        /* BOTÓN 1: DESDE Y=500 HASTA Y=900 */
         /* ============================================================ */
 
         #btn-prueba {
             position: absolute;
             left: 550px;
-            top: 750px;
+            top: 700px;
             transform: translate(-50%, -50%);
             width: 900px;
-            height: 70px;
+            height: 400px;
+            /* 900 - 500 = 400 */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: 22px;
+            font-size: 28px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
@@ -194,7 +196,7 @@
         }
 
         #btn-prueba:active {
-            transform: translate(-50%, -50%) scale(0.95);
+            transform: translate(-50%, -50%) scale(0.97);
         }
 
         #btn-prueba:disabled {
@@ -202,18 +204,23 @@
             cursor: not-allowed;
         }
 
+        /* ============================================================ */
+        /* BOTÓN 2: DESDE Y=2000 HASTA Y=2150 */
+        /* ============================================================ */
+
         #btn-agendar {
             position: absolute;
             left: 550px;
-            top: 1900px;
+            top: 2075px;
             transform: translate(-50%, -50%);
             width: 900px;
-            height: 70px;
+            height: 150px;
+            /* 2150 - 2000 = 150 */
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: 22px;
+            font-size: 28px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
@@ -231,7 +238,7 @@
         }
 
         #btn-agendar:active {
-            transform: translate(-50%, -50%) scale(0.95);
+            transform: translate(-50%, -50%) scale(0.97);
         }
 
         #btn-agendar:disabled {
@@ -304,11 +311,44 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+        /* ============================================================ */
+        /* RECTÁNGULOS DE REFERENCIA (opcional) */
+        /* ============================================================ */
+
+        .range-box {
+            position: absolute;
+            left: 550px;
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
+            border: 1px dashed rgba(0, 0, 255, 0.2);
+            background: rgba(0, 0, 255, 0.05);
+        }
+
+        .range-box-1 {
+            top: 500px;
+            width: 900px;
+            height: 400px;
+        }
+
+        .range-box-2 {
+            top: 2000px;
+            width: 900px;
+            height: 150px;
+        }
     </style>
 </head>
 <body>
 
     <div id="app">
+
+        <!-- ============================================================ -->
+        <!-- RECTÁNGULOS DE REFERENCIA (rangos de los botones) -->
+        <!-- ============================================================ -->
+
+        <div class="range-box range-box-1"></div>
+        <div class="range-box range-box-2"></div>
 
         <!-- ============================================================ -->
         <!-- LÍNEA VERTICAL -->
@@ -329,43 +369,51 @@
         <div class="guide-line-horizontal" style="top: 600px;"></div>
         <div class="guide-label" style="left: 10px; top: 600px; transform: translateY(-50%);">➡ Y = 600</div>
 
-        <!-- Y = 700 -->
-        <div class="guide-line-horizontal" style="top: 700px;"></div>
-        <div class="guide-label" style="left: 10px; top: 700px; transform: translateY(-50%);">➡ Y = 700</div>
-
-        <!-- Y = 750 (principal) -->
-        <div class="guide-line-horizontal" style="top: 750px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
-        <div class="guide-label" style="left: 10px; top: 750px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 750 ★</div>
+        <!-- Y = 700 (centro botón 1) -->
+        <div class="guide-line-horizontal" style="top: 700px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
+        <div class="guide-label" style="left: 10px; top: 700px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 700 ★</div>
 
         <!-- Y = 800 -->
         <div class="guide-line-horizontal" style="top: 800px;"></div>
         <div class="guide-label" style="left: 10px; top: 800px; transform: translateY(-50%);">➡ Y = 800</div>
 
+        <!-- Y = 900 -->
+        <div class="guide-line-horizontal" style="top: 900px;"></div>
+        <div class="guide-label" style="left: 10px; top: 900px; transform: translateY(-50%);">➡ Y = 900</div>
+
         <!-- Y = 1800 -->
         <div class="guide-line-horizontal" style="top: 1800px;"></div>
         <div class="guide-label" style="left: 10px; top: 1800px; transform: translateY(-50%);">➡ Y = 1800</div>
 
-        <!-- Y = 1900 (principal) -->
-        <div class="guide-line-horizontal" style="top: 1900px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
-        <div class="guide-label" style="left: 10px; top: 1900px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 1900 ★</div>
+        <!-- Y = 1900 -->
+        <div class="guide-line-horizontal" style="top: 1900px;"></div>
+        <div class="guide-label" style="left: 10px; top: 1900px; transform: translateY(-50%);">➡ Y = 1900</div>
 
-        <!-- Y = 2000 -->
-        <div class="guide-line-horizontal" style="top: 2000px;"></div>
-        <div class="guide-label" style="left: 10px; top: 2000px; transform: translateY(-50%);">➡ Y = 2000</div>
+        <!-- Y = 2000 (inicio botón 2) -->
+        <div class="guide-line-horizontal" style="top: 2000px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
+        <div class="guide-label" style="left: 10px; top: 2000px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 2000 ★</div>
+
+        <!-- Y = 2075 (centro botón 2) -->
+        <div class="guide-line-horizontal" style="top: 2075px; border-color: rgba(0, 0, 255, 0.8); border-width: 2px; border-style: dotted;"></div>
+        <div class="guide-label" style="left: 10px; top: 2075px; transform: translateY(-50%); background: rgba(0, 0, 255, 0.1); border-color: #0066cc; color: #0066cc;">⬅ Y = 2075 (centro)</div>
+
+        <!-- Y = 2150 (fin botón 2) -->
+        <div class="guide-line-horizontal" style="top: 2150px; border-color: rgba(255, 0, 0, 0.8); border-width: 3px;"></div>
+        <div class="guide-label" style="left: 10px; top: 2150px; transform: translateY(-50%); background: rgba(220, 53, 69, 0.15); border-color: #dc3545; font-weight: bold;">⬅ Y = 2150 ★</div>
 
         <!-- ============================================================ -->
-        <!-- PUNTOS ROJOS EN LAS COORDENADAS PRINCIPALES -->
+        <!-- PUNTOS ROJOS - CENTROS DE LOS BOTONES -->
         <!-- ============================================================ -->
 
         <div class="dot dot-1"></div>
         <div class="dot dot-2"></div>
 
         <!-- ============================================================ -->
-        <!-- ETIQUETAS DE COORDENADAS PRINCIPALES -->
+        <!-- ETIQUETAS DE COORDENADAS -->
         <!-- ============================================================ -->
 
-        <div class="label label-1">🎯 (550, 750)</div>
-        <div class="label label-2">🎯 (550, 1900)</div>
+        <div class="label label-1">🎯 Centro (550, 700)</div>
+        <div class="label label-2">🎯 Centro (550, 2075)</div>
 
         <!-- ============================================================ -->
         <!-- HEADER -->
@@ -374,7 +422,7 @@
         <div class="header">
             <span class="device-badge">📱 Samsung A34</span>
             <h1>🧪 PWA Prueba Tasker</h1>
-            <p class="subtitle">Centros EXACTOS: (550, 750) y (550, 1900)</p>
+            <p class="subtitle">Botón 1: Y=500 a 900 | Botón 2: Y=2000 a 2150</p>
         </div>
 
         <!-- ============================================================ -->
@@ -396,37 +444,29 @@
 
     <script>
         // ============================================================
-        // ESCALADO AUTOMÁTICO PARA QUE QUEPA EN EL A34
+        // ESCALADO AUTOMÁTICO
         // ============================================================
         function ajustarEscala() {
             const app = document.getElementById('app');
             const anchoPantalla = window.innerWidth;
             const altoPantalla = window.innerHeight;
 
-            // Tamaño base de la PWA
             const anchoBase = 1080;
             const altoBase = 2400;
 
-            // Calcular escala para que quepa SIN recortar
             const escalaX = anchoPantalla / anchoBase;
             const escalaY = altoPantalla / altoBase;
             const escala = Math.min(escalaX, escalaY);
 
-            // Aplicar escala
             app.style.transform = `scale(${escala})`;
             app.style.transformOrigin = 'top left';
 
-            // Centrar horizontalmente
             const margenX = (anchoPantalla - (anchoBase * escala)) / 2;
             const margenY = (altoPantalla - (altoBase * escala)) / 2;
             app.style.marginLeft = margenX + 'px';
             app.style.marginTop = margenY + 'px';
-
-            console.log('📱 Escala aplicada:', escala);
-            console.log('📐 Margen X:', margenX, 'Margen Y:', margenY);
         }
 
-        // Ejecutar al cargar y al cambiar tamaño
         window.addEventListener('load', ajustarEscala);
         window.addEventListener('resize', ajustarEscala);
 
@@ -478,20 +518,20 @@
         const btnEnviar = document.getElementById('btn-enviar');
 
         btnPrueba.addEventListener('click', function() {
-            log('🖱️ Clic en (550, 750)');
+            log('🖱️ Clic en botón 1 (centro Y=700)');
             this.disabled = true;
             this.textContent = '⏳ Cargando...';
 
             setTimeout(() => {
                 btnAgendar.classList.add('visible');
-                log('✅ Botón "Agendar" visible (550, 1900)');
+                log('✅ Botón 2 visible (Y=2000 a 2150)');
                 this.disabled = false;
                 this.textContent = '🎯 Prueba 100 puntos';
             }, 3000);
         });
 
         btnAgendar.addEventListener('click', function() {
-            log('🖱️ Clic en (550, 1900) → ¡AGENDADO! 🎉');
+            log('🖱️ Clic en botón 2 (centro Y=2075) → ¡AGENDADO! 🎉');
             this.textContent = '✅ ¡Agendado!';
             this.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
             this.disabled = true;
@@ -526,8 +566,8 @@
         window.enviarNotificacion = enviarNotificacion;
 
         console.log('📱 Tamaño base: 1080x2400');
-        console.log('🎯 Coordenadas EXACTAS: (550, 750) y (550, 1900)');
-        console.log('📏 Líneas guía: 500, 600, 700, 750★, 800, 1800, 1900★, 2000');
+        console.log('📏 Botón 1: Y=500 a 900 (centro Y=700)');
+        console.log('📏 Botón 2: Y=2000 a 2150 (centro Y=2075)');
         console.log('💡 Para probar: enviarNotificacion("soy un gato")');
     </script>
 
