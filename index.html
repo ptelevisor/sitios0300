@@ -22,41 +22,75 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            /* Sin padding para ocupar toda la pantalla */
         }
 
         #app {
             width: 100%;
-            max-width: 400px;
+            max-width: 1080px;
+            /* Ancho exacto de la pantalla objetivo */
+            height: 100vh;
+            max-height: 2400px;
+            /* Alto exacto de la pantalla objetivo */
             background: white;
-            border-radius: 20px;
-            padding: 30px 20px 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
             position: relative;
-            min-height: 600px;
+            /* IMPORTANTE: contenedor de referencia para posiciones absolutas */
+            overflow: hidden;
+            /* Evita scroll */
+        }
+
+        /* Fondo decorativo */
+        #app::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+            z-index: 0;
+        }
+
+        /* Contenido superior (títulos) */
+        .header {
+            position: absolute;
+            top: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 1;
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 28px;
             color: #1a1a2e;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .subtitle {
             color: #666;
             font-size: 14px;
-            margin-bottom: 30px;
         }
 
-        /* === Botón 1: centro en 550,750 (en una pantalla de 1080x2400) === */
+        .github-badge {
+            display: inline-block;
+            background: #24292e;
+            color: white;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        /* === BOTÓN 1: CENTRO EXACTO EN (550, 750) === */
         #btn-prueba {
             position: absolute;
-            left: 50%;
-            top: 50%;
+            /* Centro exacto en píxeles */
+            left: 550px;
+            top: 750px;
             transform: translate(-50%, -50%);
-            /* En una pantalla 1080x2400, el centro en 550,750 */
-            /* Pero como usamos %, simulamos la posición relativa */
+            /* Esto centra el botón en ese punto */
             width: 200px;
             height: 60px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -82,13 +116,14 @@
             transform: translate(-50%, -50%) scale(0.98);
         }
 
-        /* === Botón 2: centro en 550,1900 (en una pantalla de 1080x2400) === */
+        /* === BOTÓN 2: CENTRO EXACTO EN (550, 1900) === */
         #btn-agendar {
             position: absolute;
-            left: 50%;
-            top: 79%;
-            /* 1900/2400 ≈ 0.7916 → 79% */
+            /* Centro exacto en píxeles */
+            left: 550px;
+            top: 1900px;
             transform: translate(-50%, -50%);
+            /* Esto centra el botón en ese punto */
             width: 200px;
             height: 60px;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -117,10 +152,40 @@
             transform: translate(-50%, -50%) scale(0.95);
         }
 
+        #btn-agendar:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* === Botón para enviar notificación manual === */
+        #btn-enviar-notif {
+            position: absolute;
+            left: 50%;
+            bottom: 80px;
+            transform: translateX(-50%);
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+            z-index: 5;
+        }
+
+        #btn-enviar-notif:hover {
+            background: #218838;
+        }
+
+        #btn-enviar-notif:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
         /* === Estado de la notificación === */
         #notification-status {
             position: absolute;
-            bottom: 20px;
+            bottom: 140px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 13px;
@@ -128,6 +193,8 @@
             background: #f8f9fa;
             padding: 8px 16px;
             border-radius: 20px;
+            border: 1px solid #e9ecef;
+            z-index: 5;
             white-space: nowrap;
         }
 
@@ -139,7 +206,7 @@
         /* === Log de actividad === */
         #log {
             position: absolute;
-            bottom: 70px;
+            bottom: 190px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 12px;
@@ -151,43 +218,109 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            border: 1px solid #f1f3f5;
+            z-index: 5;
         }
 
         /* === Coordenadas de referencia === */
         .coord-info {
             position: absolute;
-            font-size: 10px;
-            color: #ccc;
+            font-size: 11px;
+            color: #adb5bd;
             pointer-events: none;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 3px 10px;
+            border-radius: 10px;
+            border: 1px dashed #dee2e6;
+            z-index: 1;
         }
 
         .coord-info.top {
-            top: 5px;
-            right: 10px;
+            left: 550px;
+            top: 750px;
+            transform: translate(-50%, -50%);
+            /* Centrado en la coordenada */
+            margin-top: -45px;
+            /* Desplazado arriba para no tapar el botón */
         }
 
         .coord-info.bottom {
-            bottom: 50px;
-            right: 10px;
+            left: 550px;
+            top: 1900px;
+            transform: translate(-50%, -50%);
+            margin-top: -45px;
+            /* Desplazado arriba para no tapar el botón */
+        }
+
+        /* === Líneas de guía (opcional, para depuración) === */
+        .guide-line {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.1);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .guide-line.horizontal {
+            left: 0;
+            right: 0;
+            height: 1px;
+            border-top: 1px dashed rgba(255, 0, 0, 0.2);
+        }
+
+        .guide-line.vertical {
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            border-left: 1px dashed rgba(255, 0, 0, 0.2);
+        }
+
+        /* === Puntos marcadores de coordenadas === */
+        .coord-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 0, 0, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1;
+            border: 2px solid rgba(255, 0, 0, 0.8);
+        }
+
+        .coord-dot.top {
+            left: 550px;
+            top: 750px;
+        }
+
+        .coord-dot.bottom {
+            left: 550px;
+            top: 1900px;
         }
 
         /* Responsive: ajuste para pantallas más pequeñas */
-        @media (max-width: 500px) {
+        @media (max-width: 1080px) {
             #app {
-                min-height: 500px;
-                padding: 20px 15px 30px;
+                max-width: 100vw;
+                max-height: 100vh;
+                /* Escalamos proporcionalmente */
             }
 
+            /* Las coordenadas se mantienen porque usamos píxeles fijos */
+            /* Pero si la pantalla es más pequeña, los botones pueden quedar fuera */
+            /* Para pruebas, mejor usar una pantalla 1080x2400 real */
+        }
+
+        @media (max-width: 500px) {
             #btn-prueba,
             #btn-agendar {
-                width: 160px;
-                height: 50px;
-                font-size: 15px;
+                width: 140px;
+                height: 44px;
+                font-size: 14px;
             }
 
-            #btn-agendar {
-                top: 76%;
-                /* Ajuste para pantallas más pequeñas */
+            .coord-info {
+                font-size: 9px;
+                padding: 2px 6px;
             }
         }
     </style>
@@ -196,14 +329,30 @@
 <body>
 
     <div id="app">
-        <h1>🧪 PWA de Prueba</h1>
-        <p class="subtitle">Simulación para Tasker + AutoInput</p>
+        <!-- Líneas guía de coordenadas (solo para depuración) -->
+        <div class="guide-line horizontal" style="top:750px;"></div>
+        <div class="guide-line horizontal" style="top:1900px;"></div>
+        <div class="guide-line vertical" style="left:550px;"></div>
 
-        <!-- Botón 1: Centro en 550,750 -->
+        <!-- Puntos marcadores -->
+        <div class="coord-dot top"></div>
+        <div class="coord-dot bottom"></div>
+
+        <!-- Header -->
+        <div class="header">
+            <span class="github-badge">📦 GitHub Pages</span>
+            <h1>🧪 PWA de Prueba</h1>
+            <p class="subtitle">Simulación para Tasker + AutoInput</p>
+        </div>
+
+        <!-- Botón 1: Centro en (550, 750) -->
         <button id="btn-prueba">🎯 Prueba 100 puntos</button>
 
-        <!-- Botón 2: Centro en 550,1900 -->
+        <!-- Botón 2: Centro en (550, 1900) -->
         <button id="btn-agendar">📅 Agendar</button>
+
+        <!-- Botón para enviar notificación manual -->
+        <button id="btn-enviar-notif">📨 Enviar "soy un gato"</button>
 
         <!-- Estado de notificación -->
         <div id="notification-status">
@@ -213,9 +362,9 @@
         <!-- Log de actividad -->
         <div id="log">💡 Listo para recibir notificaciones</div>
 
-        <!-- Referencias de coordenadas (solo informativo) -->
-        <div class="coord-info top">📐 550,750</div>
-        <div class="coord-info bottom">📐 550,1900</div>
+        <!-- Referencias de coordenadas -->
+        <div class="coord-info top">🎯 (550, 750)</div>
+        <div class="coord-info bottom">🎯 (550, 1900)</div>
     </div>
 
     <script>
@@ -252,17 +401,14 @@
         // ============================================================
         // 3. ESCUCHAR NOTIFICACIONES (desde el Service Worker)
         // ============================================================
-        // Escuchamos mensajes del SW cuando se recibe una notificación
         navigator.serviceWorker.addEventListener('message', (event) => {
             if (event.data && event.data.type === 'NOTIFICATION_RECEIVED') {
                 const text = event.data.text || 'sin texto';
                 document.getElementById('notif-text').textContent = `"${text}"`;
                 updateLog(`📨 Notificación recibida: "${text}"`);
 
-                // Si el texto es "soy el gato", simulamos el clic en el botón de prueba
-                if (text === 'soy el gato') {
+                if (text === 'soy un gato') {
                     updateLog('🐱 ¡Texto coincide! Simulando clic en "Prueba 100 puntos"');
-                    // Simulamos el clic en el botón de prueba
                     document.getElementById('btn-prueba').click();
                 }
             }
@@ -273,40 +419,40 @@
         // ============================================================
         const btnPrueba = document.getElementById('btn-prueba');
         const btnAgendar = document.getElementById('btn-agendar');
-        let agendarVisible = false;
+        const btnEnviarNotif = document.getElementById('btn-enviar-notif');
 
         // Botón "Prueba 100 puntos"
-        btnPrueba.addEventListener('click', function (e) {
+        btnPrueba.addEventListener('click', function(e) {
             updateLog('🖱️ Clic en "Prueba 100 puntos" (550,750)');
 
-            // Deshabilitamos el botón temporalmente
             this.disabled = true;
             this.textContent = '⏳ Cargando...';
 
-            // Mostramos el botón "Agendar" después de 3 segundos
             setTimeout(() => {
                 btnAgendar.classList.add('visible');
-                agendarVisible = true;
                 updateLog('✅ Botón "Agendar" visible en (550,1900)');
 
-                // Restauramos el botón de prueba
                 this.disabled = false;
                 this.textContent = '🎯 Prueba 100 puntos';
             }, 3000);
         });
 
         // Botón "Agendar"
-        btnAgendar.addEventListener('click', function (e) {
+        btnAgendar.addEventListener('click', function(e) {
             updateLog('🖱️ Clic en "Agendar" (550,1900) → ¡AGENDADO! 🎉');
             this.textContent = '✅ ¡Agendado!';
             this.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
             this.style.boxShadow = '0 4px 15px rgba(67, 233, 123, 0.4)';
             this.disabled = true;
 
-            // Mostramos un mensaje de éxito
             setTimeout(() => {
                 updateLog('🎉 Proceso completado con éxito');
             }, 500);
+        });
+
+        // Botón "Enviar notificación manual"
+        btnEnviarNotif.addEventListener('click', function() {
+            enviarNotificacion('soy un gato');
         });
 
         // ============================================================
@@ -318,11 +464,7 @@
             console.log('[PWA]', message);
         }
 
-        // ============================================================
-        // 6. ENVÍO DE NOTIFICACIÓN DE PRUEBA (desde la consola)
-        // ============================================================
-        // Función global para probar desde la consola del navegador
-        window.enviarNotificacion = function (texto = 'soy el gato') {
+        function enviarNotificacion(texto = 'soy un gato') {
             if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
                 navigator.serviceWorker.controller.postMessage({
                     type: 'TEST_NOTIFICATION',
@@ -331,12 +473,33 @@
                 updateLog(`📤 Enviando notificación de prueba: "${texto}"`);
             } else {
                 updateLog('❌ No hay SW activo. Recarga la página.');
+                // Intentar registrar si no está activo
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(() => {
+                            setTimeout(() => {
+                                if (navigator.serviceWorker.controller) {
+                                    navigator.serviceWorker.controller.postMessage({
+                                        type: 'TEST_NOTIFICATION',
+                                        text: texto
+                                    });
+                                    updateLog(`📤 Reintentando envío: "${texto}"`);
+                                }
+                            }, 1500);
+                        });
+                }
             }
-        };
+        }
 
-        // También podemos enviar desde el propio SW si está activo
-        console.log('💡 Para probar, escribe en consola: enviarNotificacion("soy el gato")');
-        console.log('💡 O también: enviarNotificacion("otro texto")');
+        // Exponer función global para consola
+        window.enviarNotificacion = enviarNotificacion;
+
+        console.log('💡 Para probar desde consola: enviarNotificacion("soy un gato")');
+        console.log('💡 O usa el botón "📨 Enviar" en la interfaz');
+
+        // Mostrar información de la pantalla
+        console.log(`📱 Resolución: ${window.innerWidth}x${window.innerHeight}`);
+        console.log(`📐 Coordenadas: (550,750) y (550,1900)`);
     </script>
 
 </body>
