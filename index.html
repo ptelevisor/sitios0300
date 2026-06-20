@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=1080, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PWA Prueba - Tasker</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon-192.png">
@@ -21,26 +21,24 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            /* Sin scroll */
             background: #f0f2f5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        /* === CONTENEDOR PRINCIPAL: OCUPA TODA LA PANTALLA === */
+        /* === CONTENEDOR: 1080x2400 fijo, escalado para que quepa === */
         #app {
             position: relative;
-            width: 100vw;
-            height: 100vh;
-            /* Ocupa toda la pantalla */
-            max-width: 1080px;
-            max-height: 2340px;
-            /* Límites para A34 */
-            background: white;
+            width: 1080px;
+            height: 2400px;
+            /* Tamaño fijo de referencia */
             margin: 0 auto;
+            background: white;
             overflow: hidden;
+            transform-origin: top left;
+            /* Escalamos para que quepa en la pantalla real */
         }
 
-        /* Fondo decorativo */
+        /* Fondo */
         #app::before {
             content: '';
             position: absolute;
@@ -52,7 +50,7 @@
             z-index: 0;
         }
 
-        /* === HEADER (títulos) === */
+        /* === HEADER === */
         .header {
             position: absolute;
             top: 30px;
@@ -64,14 +62,14 @@
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 28px;
             color: #1a1a2e;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .subtitle {
             color: #666;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .github-badge {
@@ -80,33 +78,29 @@
             color: white;
             padding: 2px 14px;
             border-radius: 12px;
-            font-size: 10px;
+            font-size: 11px;
             margin-bottom: 4px;
         }
 
-        /* === BOTÓN 1: ANCHO CASI COMPLETO, CENTRO EN (550, 750) === */
+        /* === BOTÓN 1: Centro EXACTO en (550, 750) === */
         #btn-prueba {
             position: absolute;
-            /* Centro exacto en (550, 750) */
             left: 550px;
             top: 750px;
             transform: translate(-50%, -50%);
-            /* Ancho: 90% de la pantalla (1080 * 0.9 = 972px) */
-            width: 90%;
-            max-width: 972px;
+            width: 900px;
+            /* 1080 - 180 de margen = 900px (83% del ancho) */
             height: 70px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
-            letter-spacing: 0.5px;
             z-index: 10;
-            text-align: center;
         }
 
         #btn-prueba:active {
@@ -116,35 +110,29 @@
         #btn-prueba:disabled {
             opacity: 0.6;
             cursor: not-allowed;
-            transform: translate(-50%, -50%) scale(0.98);
         }
 
-        /* === BOTÓN 2: ANCHO CASI COMPLETO, CENTRO EN (550, 1900) === */
+        /* === BOTÓN 2: Centro EXACTO en (550, 1900) === */
         #btn-agendar {
             position: absolute;
-            /* Centro exacto en (550, 1900) */
             left: 550px;
             top: 1900px;
             transform: translate(-50%, -50%);
-            /* Ancho: 90% de la pantalla */
-            width: 90%;
-            max-width: 972px;
+            width: 900px;
             height: 70px;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
             transition: all 0.5s ease;
-            letter-spacing: 0.5px;
             opacity: 0;
             visibility: hidden;
             transform: translate(-50%, -50%) scale(0.8);
             z-index: 10;
-            text-align: center;
         }
 
         #btn-agendar.visible {
@@ -162,7 +150,7 @@
             cursor: not-allowed;
         }
 
-        /* === Botón "Enviar notificación" (abajo) === */
+        /* === Botón "Enviar notificación" === */
         #btn-enviar-notif {
             position: absolute;
             left: 50%;
@@ -173,10 +161,9 @@
             border: none;
             padding: 12px 30px;
             border-radius: 25px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
             z-index: 5;
             box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
         }
@@ -188,10 +175,10 @@
         /* === Estado de notificación === */
         #notification-status {
             position: absolute;
-            bottom: 120px;
             left: 50%;
+            bottom: 120px;
             transform: translateX(-50%);
-            font-size: 13px;
+            font-size: 14px;
             color: #888;
             background: #f8f9fa;
             padding: 6px 18px;
@@ -209,10 +196,10 @@
         /* === Log === */
         #log {
             position: absolute;
-            bottom: 170px;
             left: 50%;
+            bottom: 170px;
             transform: translateX(-50%);
-            font-size: 11px;
+            font-size: 12px;
             color: #999;
             background: rgba(0, 0, 0, 0.05);
             padding: 4px 16px;
@@ -228,50 +215,28 @@
         /* === ETIQUETAS DE COORDENADAS === */
         .coord-info {
             position: absolute;
-            font-size: 12px;
+            font-size: 13px;
             color: #6c757d;
             pointer-events: none;
             background: rgba(255, 255, 255, 0.9);
-            padding: 2px 12px;
+            padding: 2px 14px;
             border-radius: 10px;
             border: 1px dashed #adb5bd;
             z-index: 1;
             font-weight: 500;
+            transform: translateX(-50%);
         }
 
         .coord-info.top {
             left: 550px;
-            top: 750px;
-            transform: translate(-50%, -50%);
-            margin-top: -55px;
+            top: 690px;
+            /* Arriba del botón */
         }
 
         .coord-info.bottom {
             left: 550px;
-            top: 1900px;
-            transform: translate(-50%, -50%);
-            margin-top: -55px;
-        }
-
-        /* === LÍNEAS GUÍA === */
-        .guide-line {
-            position: absolute;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .guide-line.horizontal {
-            left: 0;
-            right: 0;
-            height: 1px;
-            border-top: 1px dashed rgba(255, 0, 0, 0.3);
-        }
-
-        .guide-line.vertical {
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            border-left: 1px dashed rgba(255, 0, 0, 0.3);
+            top: 1840px;
+            /* Arriba del botón inferior */
         }
 
         /* === PUNTOS MARCADORES === */
@@ -297,66 +262,52 @@
             top: 1900px;
         }
 
-        /* === RESPONSIVE === */
-        @media (max-width: 500px) {
-            #btn-prueba,
-            #btn-agendar {
-                height: 56px;
-                font-size: 16px;
-                border-radius: 12px;
-                width: 92%;
-            }
+        /* === LÍNEAS GUÍA === */
+        .guide-line.horizontal {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            border-top: 1px dashed rgba(255, 0, 0, 0.25);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-            .coord-info {
-                font-size: 10px;
-                padding: 1px 8px;
-            }
+        .guide-line.vertical {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            border-left: 1px dashed rgba(255, 0, 0, 0.25);
+            pointer-events: none;
+            z-index: 0;
+            left: 550px;
+        }
 
-            .coord-info.top {
-                margin-top: -45px;
-            }
-            .coord-info.bottom {
-                margin-top: -45px;
-            }
-
-            #btn-enviar-notif {
-                padding: 10px 20px;
-                font-size: 13px;
-                bottom: 40px;
-            }
-
-            #notification-status {
-                bottom: 100px;
-                font-size: 11px;
-                padding: 4px 14px;
-            }
-
-            #log {
-                bottom: 145px;
-                font-size: 10px;
-                padding: 3px 12px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-            .subtitle {
-                font-size: 11px;
+        /* === RESPONSIVE: ESCALAMOS PARA QUE QUEPA EN EL A34 === */
+        @media (max-width: 1080px) {
+            #app {
+                transform: scale(0.9);
+                /* Escalamos para que quepa */
+                transform-origin: center center;
             }
         }
 
-        /* Para pantallas muy pequeñas */
-        @media (max-width: 380px) {
-            #btn-prueba,
-            #btn-agendar {
-                height: 48px;
-                font-size: 14px;
-                width: 94%;
+        @media (max-width: 900px) {
+            #app {
+                transform: scale(0.8);
             }
+        }
 
-            .coord-dot {
-                width: 10px;
-                height: 10px;
+        @media (max-width: 700px) {
+            #app {
+                transform: scale(0.65);
+            }
+        }
+
+        @media (max-width: 500px) {
+            #app {
+                transform: scale(0.5);
             }
         }
     </style>
@@ -365,10 +316,10 @@
 <body>
 
     <div id="app">
-        <!-- LÍNEAS GUÍA (solo para referencia visual) -->
+        <!-- LÍNEAS GUÍA -->
         <div class="guide-line horizontal" style="top:750px;"></div>
         <div class="guide-line horizontal" style="top:1900px;"></div>
-        <div class="guide-line vertical" style="left:550px;"></div>
+        <div class="guide-line vertical"></div>
 
         <!-- PUNTOS MARCADORES -->
         <div class="coord-dot top"></div>
@@ -378,13 +329,13 @@
         <div class="header">
             <span class="github-badge">📱 Samsung A34</span>
             <h1>🧪 PWA de Prueba</h1>
-            <p class="subtitle">Centros exactos: (550,750) y (550,1900)</p>
+            <p class="subtitle">Centros: (550,750) y (550,1900)</p>
         </div>
 
-        <!-- BOTÓN 1: Centro en (550, 750) -->
+        <!-- BOTÓN 1: Centro EXACTO en (550, 750) -->
         <button id="btn-prueba">🎯 Prueba 100 puntos</button>
 
-        <!-- BOTÓN 2: Centro en (550, 1900) -->
+        <!-- BOTÓN 2: Centro EXACTO en (550, 1900) -->
         <button id="btn-agendar">📅 Agendar</button>
 
         <!-- BOTÓN ENVIAR NOTIFICACIÓN -->
@@ -457,9 +408,8 @@
         const btnAgendar = document.getElementById('btn-agendar');
         const btnEnviar = document.getElementById('btn-enviar-notif');
 
-        // Botón "Prueba 100 puntos"
         btnPrueba.addEventListener('click', function() {
-            updateLog('🖱️ Clic en "Prueba 100 puntos" (550, 750)');
+            updateLog('🖱️ Clic en (550, 750)');
             this.disabled = true;
             this.textContent = '⏳ Cargando...';
 
@@ -471,19 +421,17 @@
             }, 3000);
         });
 
-        // Botón "Agendar"
         btnAgendar.addEventListener('click', function() {
-            updateLog('🖱️ Clic en "Agendar" (550, 1900) → ¡AGENDADO! 🎉');
+            updateLog('🖱️ Clic en (550, 1900) → ¡AGENDADO! 🎉');
             this.textContent = '✅ ¡Agendado!';
             this.style.background = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
             this.style.boxShadow = '0 6px 20px rgba(67, 233, 123, 0.4)';
             this.disabled = true;
             setTimeout(() => {
-                updateLog('🎉 Proceso completado con éxito');
+                updateLog('🎉 Proceso completado');
             }, 500);
         });
 
-        // Botón "Enviar notificación"
         btnEnviar.addEventListener('click', function() {
             enviarNotificacion('soy un gato');
         });
@@ -505,33 +453,19 @@
                 });
                 updateLog(`📤 Enviando: "${texto}"`);
             } else {
-                updateLog('❌ SW no activo. Recarga la página.');
-                // Reintentar
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.register('/sw.js')
-                        .then(() => {
-                            setTimeout(() => {
-                                if (navigator.serviceWorker.controller) {
-                                    navigator.serviceWorker.controller.postMessage({
-                                        type: 'TEST_NOTIFICATION',
-                                        text: texto
-                                    });
-                                    updateLog(`📤 Reintentando envío: "${texto}"`);
-                                }
-                            }, 1500);
-                        });
-                }
+                updateLog('❌ SW no activo');
             }
         }
 
-        // Exponer función global
         window.enviarNotificacion = enviarNotificacion;
 
-        // Información de depuración
-        console.log('📱 Resolución:', window.innerWidth, 'x', window.innerHeight);
+        // Mostrar información de depuración
+        const app = document.getElementById('app');
+        const scale = app.getBoundingClientRect().width / 1080;
+        console.log('📱 Resolución real:', window.innerWidth, 'x', window.innerHeight);
+        console.log('📏 Escala aplicada:', scale);
         console.log('🎯 Coordenadas: (550, 750) y (550, 1900)');
         console.log('💡 Para probar: enviarNotificacion("soy un gato")');
-        console.log('📏 Ancho de botones:', Math.round(window.innerWidth * 0.9), 'px');
     </script>
 
 </body>
